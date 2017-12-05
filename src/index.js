@@ -14,6 +14,7 @@ const GoogleDrive = require('./plugins/GoogleDrive/index.js')
 const Dropbox = require('./plugins/Dropbox/index.js')
 const Instagram = require('./plugins/Instagram/index.js')
 const Webcam = require('./plugins/Webcam/index.js')
+const Ftp = require('./plugins/Ftp/index.js')
 
 // Progressindicators
 const StatusBar = require('./plugins/StatusBar')
@@ -55,7 +56,8 @@ module.exports = {
   Webcam,
   GoldenRetriever,
   ReduxDevTools,
-  ReduxStore
+  ReduxStore,
+  Ftp
 }
 
 Object.defineProperty(module.exports, 'RestoreFiles', {

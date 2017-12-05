@@ -4,7 +4,6 @@ npm-debug.log
 env.sh
 node_modules
 
-dist/
 lib/
 coverage/
 
