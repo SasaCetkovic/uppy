@@ -14009,6 +14009,7 @@ var Uppy = function () {
     this.retryAll = this.retryAll.bind(this);
     this.cancelAll = this.cancelAll.bind(this);
     this.retryUpload = this.retryUpload.bind(this);
+    this.upload = this.upload.bind(this);
 
     // this.bus = this.emitter = ee()
     this.emitter = ee();
@@ -14047,7 +14048,6 @@ var Uppy = function () {
     if (this.opts.debug) {
       global.uppyLog = '';
       global[this.opts.id] = this;
-      // global._uppy = this
     }
   }
 
@@ -15116,7 +15116,7 @@ module.exports.Uppy = Uppy;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../core/Translator":93,"../core/Utils":95,"../store/DefaultStore":156,"./UppySocket":94,"cuid":12,"lodash.throttle":41,"mime-match":42,"namespace-emitter":45,"prettier-bytes":51}],93:[function(require,module,exports){
+},{"../core/Translator":93,"../core/Utils":95,"../store/DefaultStore":154,"./UppySocket":94,"cuid":12,"lodash.throttle":41,"mime-match":42,"namespace-emitter":45,"prettier-bytes":51}],93:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -15913,7 +15913,7 @@ module.exports = {
   limitPromises: limitPromises
 };
 
-},{"../vendor/file-type":157,"es6-promise":29,"lodash.throttle":41}],96:[function(require,module,exports){
+},{"../vendor/file-type":155,"es6-promise":29,"lodash.throttle":41}],96:[function(require,module,exports){
 'use strict';
 
 var Core = require('./Core');
@@ -15932,9 +15932,9 @@ module.exports = function (props) {
 
   var demoLink = props.demo ? (_uppyProviderAuthBtnDemo = document.createElement('button'), _uppyProviderAuthBtnDemo.onclick = props.handleDemoAuth, _uppyProviderAuthBtnDemo.setAttribute('class', 'UppyProvider-authBtnDemo'), _uppyProviderAuthBtnDemo.textContent = 'Proceed with Demo Account', _uppyProviderAuthBtnDemo) : null;
   var AuthBlock = function AuthBlock() {
-    var _uppyProviderAuthTitleName, _br, _uppyProviderAuthTitle, _uppyProviderAuthBtn, _uppyProviderAuth;
+    var _br, _uppyProviderAuthTitle, _uppyProviderAuthBtn, _uppyProviderAuth;
 
-    return _uppyProviderAuth = document.createElement('div'), _uppyProviderAuth.setAttribute('class', 'UppyProvider-auth'), _appendChild(_uppyProviderAuth, [' ', (_uppyProviderAuthTitle = document.createElement('h1'), _uppyProviderAuthTitle.setAttribute('class', 'UppyProvider-authTitle'), _appendChild(_uppyProviderAuthTitle, ['Please authenticate with ', (_uppyProviderAuthTitleName = document.createElement('span'), _uppyProviderAuthTitleName.setAttribute('class', 'UppyProvider-authTitleName'), _appendChild(_uppyProviderAuthTitleName, [props.pluginName]), _uppyProviderAuthTitleName), (_br = document.createElement('br'), _br), ' to select files']), _uppyProviderAuthTitle), ' ', (_uppyProviderAuthBtn = document.createElement('button'), _uppyProviderAuthBtn.setAttribute('type', 'button'), _uppyProviderAuthBtn.onclick = props.handleAuth, _uppyProviderAuthBtn.setAttribute('class', 'UppyProvider-authBtn'), _uppyProviderAuthBtn.textContent = 'Authenticate', _uppyProviderAuthBtn), ' ', demoLink, ' ']), _uppyProviderAuth;
+    return _uppyProviderAuth = document.createElement('div'), _uppyProviderAuth.setAttribute('class', 'UppyProvider-auth'), _appendChild(_uppyProviderAuth, [' ', (_uppyProviderAuthTitle = document.createElement('h1'), _uppyProviderAuthTitle.setAttribute('class', 'UppyProvider-authTitle'), _appendChild(_uppyProviderAuthTitle, ['Please connect your ', props.pluginName, (_br = document.createElement('br'), _br), ' account to select files']), _uppyProviderAuthTitle), ' ', (_uppyProviderAuthBtn = document.createElement('button'), _uppyProviderAuthBtn.setAttribute('type', 'button'), _uppyProviderAuthBtn.onclick = props.handleAuth, _uppyProviderAuthBtn.setAttribute('class', 'UppyProvider-authBtn'), _appendChild(_uppyProviderAuthBtn, ['Connect to ', props.pluginName]), _uppyProviderAuthBtn), ' ', demoLink, ' ']), _uppyProviderAuth;
   };
   return onload((_div = document.createElement('div'), _div.setAttribute('style', 'height: 100%;'), _appendChild(_div, [' ', props.checkAuthInProgress ? LoaderView() : AuthBlock(), ' ']), _div), props.checkAuth, null, 'auth' + props.pluginName);
 };
@@ -15980,7 +15980,7 @@ var Breadcrumbs = require('./Breadcrumbs');
 var Table = require('./Table');
 
 module.exports = function (props) {
-  var _browserSearchInput, _path, _uppyIcon, _browserSearchClose, _browserSearch, _path2, _uppyIcon2, _browserSearchToggle, _browserUserLogout, _browserHeaderBar, _browserHeader, _browserBody, _div;
+  var _browserSearchInput, _path, _uppyIcon, _browserSearchClose, _browserSearch, _path2, _uppyIcon2, _browserSearchToggle, _browserUserLogout, _browserHeaderBar, _browserHeader, _browserBody, _polygon, _uppyIcon3, _uppyButtonCircular, _div;
 
   var filteredFolders = props.folders;
   var filteredFiles = props.files;
@@ -16012,7 +16012,7 @@ module.exports = function (props) {
     getItemIcon: props.getItemIcon,
     handleScroll: props.handleScroll,
     title: props.title
-  }), ' ']), _browserBody), ' ']), _div;
+  }), ' ']), _browserBody), ' ', (_uppyButtonCircular = document.createElement('button'), _uppyButtonCircular.setAttribute('type', 'button'), _uppyButtonCircular.setAttribute('aria-label', 'Done picking files'), _uppyButtonCircular.setAttribute('title', 'Done picking files'), _uppyButtonCircular.onclick = props.done, _uppyButtonCircular.setAttribute('class', 'UppyButton--circular UppyButton--blue Browser-doneBtn'), _appendChild(_uppyButtonCircular, [' ', (_uppyIcon3 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon3.setAttribute('aria-hidden', 'true'), _uppyIcon3.setAttribute('width', '13px'), _uppyIcon3.setAttribute('height', '9px'), _uppyIcon3.setAttribute('viewBox', '0 0 13 9'), _uppyIcon3.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon3, [' ', (_polygon = document.createElementNS(_svgNamespace, 'polygon'), _polygon.setAttribute('points', '5 7.293 1.354 3.647 0.646 4.354 5 8.707 12.354 1.354 11.646 0.647'), _polygon), ' ']), _uppyIcon3), ' ']), _uppyButtonCircular), ' ']), _div;
 };
 
 },{"./Breadcrumbs":99,"./Table":102,"yo-yoify/lib/appendChild":90}],101:[function(require,module,exports){
@@ -16090,39 +16090,23 @@ module.exports = function (props) {
   }), ' ']), _tbody), ' ']), _browserTable;
 };
 
-},{"./TableRow":104,"yo-yoify/lib/appendChild":90}],103:[function(require,module,exports){
+},{"./TableRow":103,"yo-yoify/lib/appendChild":90}],103:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
 
-module.exports = function (props) {
-  var _browserTableRowColumn;
-
-  return _browserTableRowColumn = document.createElement('td'), _browserTableRowColumn.setAttribute('class', 'BrowserTable-rowColumn BrowserTable-column'), _appendChild(_browserTableRowColumn, [' ', props.getItemIcon(), ' ', props.value, ' ']), _browserTableRowColumn;
-};
-
-},{"yo-yoify/lib/appendChild":90}],104:[function(require,module,exports){
-'use strict';
-
-var _appendChild = require('yo-yoify/lib/appendChild');
-
-var Column = require('./TableColumn');
+var cuid = require('cuid');
 
 module.exports = function (props) {
-  var _input, _browserTableColumn, _tr;
+  var _input, _label, _browserTableCheckbox, _browserTableItem, _browserTableColumn, _browserTableRow;
 
-  var classes = props.active ? 'BrowserTable-row is-active' : 'BrowserTable-row';
-  var handleKeyDown = function handleKeyDown(event) {
-    if (event.keyCode === 13) props.handleClick();
-  };
+  // const classes = props.active ? 'BrowserTable-row is-active' : 'BrowserTable-row'
+  var uniqueId = cuid();
 
-  return _tr = document.createElement('tr'), _tr.onclick = props.handleClick, _tr.onkeydown = handleKeyDown, _tr.setAttribute('role', 'option'), _tr.setAttribute('tabindex', '0'), _tr.setAttribute('class', '' + String(classes) + ''), _appendChild(_tr, [' ', (_browserTableColumn = document.createElement('td'), _browserTableColumn.onclick = props.handleCheckboxClick, _browserTableColumn.setAttribute('class', 'BrowserTable-column'), _appendChild(_browserTableColumn, [' ', (_input = document.createElement('input'), _input.setAttribute('type', 'checkbox'), props.isChecked && _input.setAttribute('checked', 'checked'), props.isDisabled && _input.setAttribute('disabled', 'disabled'), _input), ' ']), _browserTableColumn), ' ', Column({
-    getItemIcon: props.getItemIcon,
-    value: props.title
-  }), ' ']), _tr;
+  return _browserTableRow = document.createElement('tr'), _browserTableRow.setAttribute('class', 'BrowserTable-row'), _appendChild(_browserTableRow, [' ', (_browserTableColumn = document.createElement('td'), _browserTableColumn.setAttribute('class', 'BrowserTable-column'), _appendChild(_browserTableColumn, [' ', (_browserTableCheckbox = document.createElement('div'), _browserTableCheckbox.setAttribute('class', 'BrowserTable-checkbox'), _appendChild(_browserTableCheckbox, [' ', (_input = document.createElement('input'), _input.setAttribute('type', 'checkbox'), _input.setAttribute('role', 'option'), _input.setAttribute('tabindex', '0'), _input.setAttribute('aria-label', 'Select file: ' + String(props.title) + ''), _input.setAttribute('id', '' + String(uniqueId) + ''), props.isChecked && _input.setAttribute('checked', 'checked'), props.isDisabled && _input.setAttribute('disabled', 'disabled'), _input.onchange = props.handleCheckboxClick, _input), ' ', (_label = document.createElement('label'), _label.setAttribute('for', '' + String(uniqueId) + ''), _label), ' ']), _browserTableCheckbox), ' ', (_browserTableItem = document.createElement('button'), _browserTableItem.setAttribute('type', 'button'), _browserTableItem.setAttribute('aria-label', 'Select file: ' + String(props.title) + ''), _browserTableItem.setAttribute('tabindex', '0'), _browserTableItem.onclick = props.handleClick, _browserTableItem.setAttribute('class', 'BrowserTable-item'), _appendChild(_browserTableItem, [' ', props.getItemIcon(), ' ', props.title, ' ']), _browserTableItem), ' ']), _browserTableColumn), ' ']), _browserTableRow;
 };
 
-},{"./TableColumn":103,"yo-yoify/lib/appendChild":90}],105:[function(require,module,exports){
+},{"cuid":12,"yo-yoify/lib/appendChild":90}],104:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -16203,6 +16187,7 @@ module.exports = function () {
     this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.donePicking = this.donePicking.bind(this);
 
     this.plugin.core.on('core:file-removed', this.updateFolderState);
 
@@ -16315,7 +16300,7 @@ module.exports = function () {
       _this4.plugin.core.log('Adding remote file');
       _this4.plugin.core.addFile(tagFile);
       if (!isCheckbox) {
-        _this4.plugin.core.getPlugin('Dashboard').hideAllPanels();
+        _this4.donePicking();
       }
     });
   };
@@ -16758,6 +16743,11 @@ module.exports = function () {
     }
   };
 
+  View.prototype.donePicking = function donePicking() {
+    var dashboard = this.plugin.core.getPlugin('Dashboard');
+    if (dashboard) dashboard.hideAllPanels();
+  };
+
   // displays loader view while asynchronous request is being made.
 
 
@@ -16808,6 +16798,7 @@ module.exports = function () {
       getItemName: this.plugin.getItemName,
       getItemIcon: this.plugin.getItemIcon,
       handleScroll: this.handleScroll,
+      done: this.donePicking,
       title: this.plugin.title,
       viewType: this.opts.viewType
     });
@@ -16818,7 +16809,7 @@ module.exports = function () {
   return View;
 }();
 
-},{"../core/Utils":95,"./AuthView":97,"./Browser":100,"./Loader":101}],106:[function(require,module,exports){
+},{"../core/Utils":95,"./AuthView":97,"./Browser":100,"./Loader":101}],105:[function(require,module,exports){
 'use strict';
 
 var Core = require('./core/index.js');
@@ -16913,7 +16904,7 @@ Object.defineProperty(module.exports, 'Tus10', {
   }
 });
 
-},{"./core/index.js":96,"./plugins/AwsS3":107,"./plugins/Dashboard/index.js":118,"./plugins/DragDrop/index.js":119,"./plugins/Dropbox/index.js":121,"./plugins/Dummy":122,"./plugins/FileInput.js":123,"./plugins/Ftp/index.js":126,"./plugins/GoldenRetriever":130,"./plugins/GoogleDrive/index.js":131,"./plugins/Informer.js":132,"./plugins/Instagram/index.js":133,"./plugins/MetaData.js":134,"./plugins/Plugin":135,"./plugins/ProgressBar.js":136,"./plugins/Redux":137,"./plugins/ReduxDevTools":138,"./plugins/StatusBar":140,"./plugins/Transloadit":143,"./plugins/Tus":144,"./plugins/Webcam/index.js":153,"./plugins/XHRUpload":155}],107:[function(require,module,exports){
+},{"./core/index.js":96,"./plugins/AwsS3":106,"./plugins/Dashboard/index.js":116,"./plugins/DragDrop/index.js":117,"./plugins/Dropbox/index.js":119,"./plugins/Dummy":120,"./plugins/FileInput.js":121,"./plugins/Ftp/index.js":124,"./plugins/GoldenRetriever":128,"./plugins/GoogleDrive/index.js":129,"./plugins/Informer.js":130,"./plugins/Instagram/index.js":131,"./plugins/MetaData.js":132,"./plugins/Plugin":133,"./plugins/ProgressBar.js":134,"./plugins/Redux":135,"./plugins/ReduxDevTools":136,"./plugins/StatusBar":138,"./plugins/Transloadit":141,"./plugins/Tus":142,"./plugins/Webcam/index.js":151,"./plugins/XHRUpload":153}],106:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -17091,7 +17082,7 @@ module.exports = function (_Plugin) {
   return AwsS3;
 }(Plugin);
 
-},{"../../core/Translator":93,"../Plugin":135,"../XHRUpload":155}],108:[function(require,module,exports){
+},{"../../core/Translator":93,"../Plugin":133,"../XHRUpload":153}],107:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -17106,7 +17097,7 @@ module.exports = function (props) {
   }, _uppyDashboardBrowse.setAttribute('class', 'UppyDashboard-browse'), _appendChild(_uppyDashboardBrowse, [props.i18n('browse')]), _uppyDashboardBrowse), ' ', input, ' ']), _span;
 };
 
-},{"yo-yoify/lib/appendChild":90}],109:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],108:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild'),
@@ -17115,7 +17106,7 @@ var _appendChild = require('yo-yoify/lib/appendChild'),
 var FileList = require('./FileList');
 var Tabs = require('./Tabs');
 var FileCard = require('./FileCard');
-var UploadBtn = require('./UploadBtn');
+// const UploadBtn = require('./UploadBtn')
 
 var _require = require('../../core/Utils'),
     isTouchDevice = _require.isTouchDevice,
@@ -17128,7 +17119,7 @@ var _require2 = require('./icons'),
 // https://github.com/ghosh/micromodal
 
 module.exports = function Dashboard(props) {
-  var _uppyDashboardOverlay, _uppyDashboardClose, _uppyDashboardActions, _uppyDashboardFilesContainer, _uppyDashboardContentPanel, _uppyDashboardProgressindicators, _uppyDashboardInnerWrap, _uppyDashboardInner, _div2;
+  var _uppyDashboardOverlay, _uppyDashboardClose, _uppyDashboardFilesContainer, _uppyDashboardContentPanel, _uppyDashboardProgressindicators, _uppyDashboardInnerWrap, _uppyDashboardInner, _div2;
 
   function handleInputChange(ev) {
     ev.preventDefault();
@@ -17212,16 +17203,23 @@ module.exports = function Dashboard(props) {
     retryUpload: props.retryUpload,
     resumableUploads: props.resumableUploads,
     isWide: props.isWide
-  }), ' ', (_uppyDashboardActions = document.createElement('div'), _uppyDashboardActions.setAttribute('class', 'UppyDashboard-actions'), _appendChild(_uppyDashboardActions, [' ', !props.hideUploadButton && !props.autoProceed && props.newFiles.length > 0 ? UploadBtn({
-    i18n: props.i18n,
-    startUpload: props.startUpload,
-    newFileCount: props.newFiles.length
-  }) : null, ' ']), _uppyDashboardActions), ' ']), _uppyDashboardFilesContainer), ' ', (_uppyDashboardContentPanel = document.createElement('div'), _uppyDashboardContentPanel.setAttribute('role', 'tabpanel'), _uppyDashboardContentPanel.setAttribute('aria-hidden', '' + String(props.activePanel ? 'false' : 'true') + ''), _uppyDashboardContentPanel.setAttribute('class', 'UppyDashboardContent-panel'), _appendChild(_uppyDashboardContentPanel, [' ', props.activePanel ? renderInnerPanel(props) : '', ' ']), _uppyDashboardContentPanel), ' ', (_uppyDashboardProgressindicators = document.createElement('div'), _uppyDashboardProgressindicators.setAttribute('class', 'UppyDashboard-progressindicators'), _appendChild(_uppyDashboardProgressindicators, [' ', props.progressindicators.map(function (target) {
+  }), ' ']), _uppyDashboardFilesContainer), ' ', (_uppyDashboardContentPanel = document.createElement('div'), _uppyDashboardContentPanel.setAttribute('role', 'tabpanel'), _uppyDashboardContentPanel.setAttribute('aria-hidden', '' + String(props.activePanel ? 'false' : 'true') + ''), _uppyDashboardContentPanel.setAttribute('class', 'UppyDashboardContent-panel'), _appendChild(_uppyDashboardContentPanel, [' ', props.activePanel ? renderInnerPanel(props) : '', ' ']), _uppyDashboardContentPanel), ' ', (_uppyDashboardProgressindicators = document.createElement('div'), _uppyDashboardProgressindicators.setAttribute('class', 'UppyDashboard-progressindicators'), _appendChild(_uppyDashboardProgressindicators, [' ', props.progressindicators.map(function (target) {
     return props.getPlugin(target.id).render(props.state);
   }), ' ']), _uppyDashboardProgressindicators), ' ']), _uppyDashboardInnerWrap), ' ']), _uppyDashboardInner), ' ']), _div2;
 };
 
-},{"../../core/Utils":95,"./FileCard":110,"./FileList":113,"./Tabs":114,"./UploadBtn":115,"./icons":117,"on-load":48,"yo-yoify/lib/appendChild":90}],110:[function(require,module,exports){
+// <div class="UppyDashboard-actions">
+// ${!props.hideUploadButton && !props.autoProceed && props.newFiles.length > 0
+//  ? UploadBtn({
+//    i18n: props.i18n,
+//    startUpload: props.startUpload,
+//    newFileCount: props.newFiles.length
+//  })
+//  : null
+// }
+// </div>
+
+},{"../../core/Utils":95,"./FileCard":109,"./FileList":112,"./Tabs":113,"./icons":115,"on-load":48,"yo-yoify/lib/appendChild":90}],109:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild'),
@@ -17264,7 +17262,7 @@ module.exports = function fileCard(props) {
   }, _uppyButtonCircular.setAttribute('class', 'UppyButton--circular UppyButton--blue UppyDashboardFileCard-done'), _appendChild(_uppyButtonCircular, [checkIcon()]), _uppyButtonCircular), ' ']), _uppyDashboardActions), ' ']), _div) : null, ' ']), _uppyDashboardFileCard;
 };
 
-},{"./getFileTypeIcon":116,"./icons":117,"yo-yoify/lib/appendChild":90}],111:[function(require,module,exports){
+},{"./getFileTypeIcon":114,"./icons":115,"yo-yoify/lib/appendChild":90}],110:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild'),
@@ -17288,7 +17286,7 @@ var _require2 = require('./icons'),
     iconRetry = _require2.iconRetry;
 
 module.exports = function fileItem(props) {
-  var _uppyDashboardItemPreviewInnerWrap, _uppyDashboardItemProgressBtn, _uppyDashboardItemProgress, _uppyDashboardItemPreview, _uppyDashboardItemName, _uppyDashboardItemStatus, _uppyDashboardItemInfo, _uppyDashboardItemAction, _li, _img, _uppyDashboardItemPreviewIcon, _path, _path2, _g, _uppyDashboardItemPreviewIconBg, _uppyDashboardItemPreviewIconWrap, _uppyDashboardItemProgressInfo, _span, _a, _uppyDashboardItemStatusSize, _uppyDashboardItemSourceIcon, _uppyDashboardItemEdit, _uppyDashboardItemCopyLink, _ellipse, _path3, _uppyIcon, _uppyDashboardItemRemove;
+  var _uppyDashboardItemPreviewInnerWrap, _uppyDashboardItemProgress, _uppyDashboardItemPreview, _uppyDashboardItemName, _uppyDashboardItemStatus, _uppyDashboardItemInfo, _uppyDashboardItemAction, _li, _img, _uppyDashboardItemPreviewIcon, _path, _path2, _g, _uppyDashboardItemPreviewIconBg, _uppyDashboardItemPreviewIconWrap, _uppyDashboardItemProgressIndicator, _uppyDashboardItemProgressIndicator2, _uppyDashboardItemProgressInfo, _span, _a, _uppyDashboardItemStatusSize, _uppyDashboardItemSourceIcon, _uppyDashboardItemEdit, _uppyDashboardItemCopyLink, _path3, _path4, _uppyIcon, _uppyDashboardItemRemove;
 
   var file = props.file;
   var acquirers = props.acquirers;
@@ -17301,7 +17299,7 @@ module.exports = function fileItem(props) {
   var error = file.error || false;
 
   var fileName = getFileNameAndExtension(file.meta.name).name;
-  var truncatedFileName = props.isWide ? truncateString(fileName, 15) : fileName;
+  var truncatedFileName = props.isWide ? truncateString(fileName, 16) : fileName;
 
   var onPauseResumeCancelRetry = function onPauseResumeCancelRetry(ev) {
     if (isUploaded) return;
@@ -17316,10 +17314,13 @@ module.exports = function fileItem(props) {
     }
   };
 
-  return _li = document.createElement('li'), _li.setAttribute('id', 'uppy_' + String(file.id) + ''), _li.setAttribute('title', '' + String(file.meta.name) + ''), _li.setAttribute('class', 'UppyDashboardItem\n                        ' + String(uploadInProgress ? 'is-inprogress' : '') + '\n                        ' + String(isProcessing ? 'is-processing' : '') + '\n                        ' + String(isUploaded ? 'is-complete' : '') + '\n                        ' + String(isPaused ? 'is-paused' : '') + '\n                        ' + String(error ? 'is-error' : '') + '\n                        ' + String(props.resumableUploads ? 'is-resumable' : '') + ''), _appendChild(_li, [' ', (_uppyDashboardItemPreview = document.createElement('div'), _uppyDashboardItemPreview.setAttribute('class', 'UppyDashboardItem-preview'), _appendChild(_uppyDashboardItemPreview, [' ', (_uppyDashboardItemPreviewInnerWrap = document.createElement('div'), _uppyDashboardItemPreviewInnerWrap.setAttribute('style', 'background-color: ' + String(getFileTypeIcon(file.type).color) + ''), _uppyDashboardItemPreviewInnerWrap.setAttribute('class', 'UppyDashboardItem-previewInnerWrap'), _appendChild(_uppyDashboardItemPreviewInnerWrap, [' ', file.preview ? (_img = document.createElement('img'), _img.setAttribute('alt', '' + String(file.name) + ''), _img.setAttribute('src', '' + String(file.preview) + ''), _img) : (_uppyDashboardItemPreviewIconWrap = document.createElement('div'), _uppyDashboardItemPreviewIconWrap.setAttribute('class', 'UppyDashboardItem-previewIconWrap'), _appendChild(_uppyDashboardItemPreviewIconWrap, [' ', (_uppyDashboardItemPreviewIcon = document.createElement('span'), _uppyDashboardItemPreviewIcon.setAttribute('style', 'color: ' + String(getFileTypeIcon(file.type).color) + ''), _uppyDashboardItemPreviewIcon.setAttribute('class', 'UppyDashboardItem-previewIcon'), _appendChild(_uppyDashboardItemPreviewIcon, [getFileTypeIcon(file.type).icon]), _uppyDashboardItemPreviewIcon), ' ', (_uppyDashboardItemPreviewIconBg = document.createElementNS(_svgNamespace, 'svg'), _uppyDashboardItemPreviewIconBg.setAttribute('width', '72'), _uppyDashboardItemPreviewIconBg.setAttribute('height', '93'), _uppyDashboardItemPreviewIconBg.setAttribute('viewBox', '0 0 72 93'), _uppyDashboardItemPreviewIconBg.setAttribute('class', 'UppyDashboardItem-previewIconBg'), _appendChild(_uppyDashboardItemPreviewIconBg, [(_g = document.createElementNS(_svgNamespace, 'g'), _appendChild(_g, [(_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M24.08 5h38.922A2.997 2.997 0 0 1 66 8.003v74.994A2.997 2.997 0 0 1 63.004 86H8.996A2.998 2.998 0 0 1 6 83.01V22.234L24.08 5z'), _path.setAttribute('fill', '#FFF'), _path), (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M24 5L6 22.248h15.007A2.995 2.995 0 0 0 24 19.244V5z'), _path2.setAttribute('fill', '#E4E4E4'), _path2)]), _g)]), _uppyDashboardItemPreviewIconBg), ' ']), _uppyDashboardItemPreviewIconWrap), ' ']), _uppyDashboardItemPreviewInnerWrap), ' ', (_uppyDashboardItemProgress = document.createElement('div'), _uppyDashboardItemProgress.setAttribute('class', 'UppyDashboardItem-progress'), _appendChild(_uppyDashboardItemProgress, [' ', (_uppyDashboardItemProgressBtn = document.createElement('button'), _uppyDashboardItemProgressBtn.setAttribute('type', 'button'), _uppyDashboardItemProgressBtn.setAttribute('title', '' + String(isUploaded ? 'upload complete' : props.resumableUploads ? file.isPaused ? 'resume upload' : 'pause upload' : 'cancel upload') + ''), _uppyDashboardItemProgressBtn.onclick = onPauseResumeCancelRetry, _uppyDashboardItemProgressBtn.setAttribute('class', 'UppyDashboardItem-progressBtn'), _appendChild(_uppyDashboardItemProgressBtn, [' ', error ? iconRetry() : FileItemProgress({
+  return _li = document.createElement('li'), _li.setAttribute('id', 'uppy_' + String(file.id) + ''), _li.setAttribute('title', '' + String(file.meta.name) + ''), _li.setAttribute('class', 'UppyDashboardItem\n                        ' + String(uploadInProgress ? 'is-inprogress' : '') + '\n                        ' + String(isProcessing ? 'is-processing' : '') + '\n                        ' + String(isUploaded ? 'is-complete' : '') + '\n                        ' + String(isPaused ? 'is-paused' : '') + '\n                        ' + String(error ? 'is-error' : '') + '\n                        ' + String(props.resumableUploads ? 'is-resumable' : '') + ''), _appendChild(_li, [' ', (_uppyDashboardItemPreview = document.createElement('div'), _uppyDashboardItemPreview.setAttribute('class', 'UppyDashboardItem-preview'), _appendChild(_uppyDashboardItemPreview, [' ', (_uppyDashboardItemPreviewInnerWrap = document.createElement('div'), _uppyDashboardItemPreviewInnerWrap.setAttribute('style', 'background-color: ' + String(getFileTypeIcon(file.type).color) + ''), _uppyDashboardItemPreviewInnerWrap.setAttribute('class', 'UppyDashboardItem-previewInnerWrap'), _appendChild(_uppyDashboardItemPreviewInnerWrap, [' ', file.preview ? (_img = document.createElement('img'), _img.setAttribute('alt', '' + String(file.name) + ''), _img.setAttribute('src', '' + String(file.preview) + ''), _img) : (_uppyDashboardItemPreviewIconWrap = document.createElement('div'), _uppyDashboardItemPreviewIconWrap.setAttribute('class', 'UppyDashboardItem-previewIconWrap'), _appendChild(_uppyDashboardItemPreviewIconWrap, [' ', (_uppyDashboardItemPreviewIcon = document.createElement('span'), _uppyDashboardItemPreviewIcon.setAttribute('style', 'color: ' + String(getFileTypeIcon(file.type).color) + ''), _uppyDashboardItemPreviewIcon.setAttribute('class', 'UppyDashboardItem-previewIcon'), _appendChild(_uppyDashboardItemPreviewIcon, [getFileTypeIcon(file.type).icon]), _uppyDashboardItemPreviewIcon), ' ', (_uppyDashboardItemPreviewIconBg = document.createElementNS(_svgNamespace, 'svg'), _uppyDashboardItemPreviewIconBg.setAttribute('width', '72'), _uppyDashboardItemPreviewIconBg.setAttribute('height', '93'), _uppyDashboardItemPreviewIconBg.setAttribute('viewBox', '0 0 72 93'), _uppyDashboardItemPreviewIconBg.setAttribute('class', 'UppyDashboardItem-previewIconBg'), _appendChild(_uppyDashboardItemPreviewIconBg, [(_g = document.createElementNS(_svgNamespace, 'g'), _appendChild(_g, [(_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M24.08 5h38.922A2.997 2.997 0 0 1 66 8.003v74.994A2.997 2.997 0 0 1 63.004 86H8.996A2.998 2.998 0 0 1 6 83.01V22.234L24.08 5z'), _path.setAttribute('fill', '#FFF'), _path), (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M24 5L6 22.248h15.007A2.995 2.995 0 0 0 24 19.244V5z'), _path2.setAttribute('fill', '#E4E4E4'), _path2)]), _g)]), _uppyDashboardItemPreviewIconBg), ' ']), _uppyDashboardItemPreviewIconWrap), ' ']), _uppyDashboardItemPreviewInnerWrap), ' ', (_uppyDashboardItemProgress = document.createElement('div'), _uppyDashboardItemProgress.setAttribute('class', 'UppyDashboardItem-progress'), _appendChild(_uppyDashboardItemProgress, [' ', isUploaded ? (_uppyDashboardItemProgressIndicator = document.createElement('div'), _uppyDashboardItemProgressIndicator.setAttribute('class', 'UppyDashboardItem-progressIndicator'), _appendChild(_uppyDashboardItemProgressIndicator, [' ', FileItemProgress({
     progress: file.progress.percentage,
     fileID: file.id
-  }), ' ']), _uppyDashboardItemProgressBtn), ' ', props.showProgressDetails ? (_uppyDashboardItemProgressInfo = document.createElement('div'), _uppyDashboardItemProgressInfo.setAttribute('title', '' + String(props.i18n('fileProgress')) + ''), _uppyDashboardItemProgressInfo.setAttribute('aria-label', '' + String(props.i18n('fileProgress')) + ''), _uppyDashboardItemProgressInfo.setAttribute('class', 'UppyDashboardItem-progressInfo'), _appendChild(_uppyDashboardItemProgressInfo, [' ', !file.isPaused && !isUploaded ? (_span = document.createElement('span'), _appendChild(_span, [prettyETA(getETA(file.progress)), ' \u30FB \u2191 ', prettyBytes(getSpeed(file.progress)), '/s']), _span) : null, ' ']), _uppyDashboardItemProgressInfo) : null, ' ']), _uppyDashboardItemProgress), ' ']), _uppyDashboardItemPreview), ' ', (_uppyDashboardItemInfo = document.createElement('div'), _uppyDashboardItemInfo.setAttribute('class', 'UppyDashboardItem-info'), _appendChild(_uppyDashboardItemInfo, [' ', (_uppyDashboardItemName = document.createElement('h4'), _uppyDashboardItemName.setAttribute('title', '' + String(fileName) + ''), _uppyDashboardItemName.setAttribute('class', 'UppyDashboardItem-name'), _appendChild(_uppyDashboardItemName, [' ', file.uploadURL ? (_a = document.createElement('a'), _a.setAttribute('href', '' + String(file.uploadURL) + ''), _a.setAttribute('target', '_blank'), _appendChild(_a, [' ', file.extension ? truncatedFileName + '.' + file.extension : truncatedFileName, ' ']), _a) : file.extension ? truncatedFileName + '.' + file.extension : truncatedFileName, ' ']), _uppyDashboardItemName), ' ', (_uppyDashboardItemStatus = document.createElement('div'), _uppyDashboardItemStatus.setAttribute('class', 'UppyDashboardItem-status'), _appendChild(_uppyDashboardItemStatus, [' ', file.data.size && (_uppyDashboardItemStatusSize = document.createElement('div'), _uppyDashboardItemStatusSize.setAttribute('class', 'UppyDashboardItem-statusSize'), _appendChild(_uppyDashboardItemStatusSize, [prettyBytes(file.data.size)]), _uppyDashboardItemStatusSize), ' ', file.source && (_uppyDashboardItemSourceIcon = document.createElement('div'), _uppyDashboardItemSourceIcon.setAttribute('class', 'UppyDashboardItem-sourceIcon'), _appendChild(_uppyDashboardItemSourceIcon, [' ', acquirers.map(function (acquirer) {
+  }), ' ']), _uppyDashboardItemProgressIndicator) : (_uppyDashboardItemProgressIndicator2 = document.createElement('button'), _uppyDashboardItemProgressIndicator2.setAttribute('type', 'button'), _uppyDashboardItemProgressIndicator2.setAttribute('title', '' + String(isUploaded ? 'upload complete' : props.resumableUploads ? file.isPaused ? 'resume upload' : 'pause upload' : 'cancel upload') + ''), _uppyDashboardItemProgressIndicator2.onclick = onPauseResumeCancelRetry, _uppyDashboardItemProgressIndicator2.setAttribute('class', 'UppyDashboardItem-progressIndicator'), _appendChild(_uppyDashboardItemProgressIndicator2, [' ', error ? iconRetry() : FileItemProgress({
+    progress: file.progress.percentage,
+    fileID: file.id
+  }), ' ']), _uppyDashboardItemProgressIndicator2), ' ', props.showProgressDetails ? (_uppyDashboardItemProgressInfo = document.createElement('div'), _uppyDashboardItemProgressInfo.setAttribute('title', '' + String(props.i18n('fileProgress')) + ''), _uppyDashboardItemProgressInfo.setAttribute('aria-label', '' + String(props.i18n('fileProgress')) + ''), _uppyDashboardItemProgressInfo.setAttribute('class', 'UppyDashboardItem-progressInfo'), _appendChild(_uppyDashboardItemProgressInfo, [' ', !file.isPaused && !isUploaded ? (_span = document.createElement('span'), _appendChild(_span, [prettyETA(getETA(file.progress)), ' \u30FB \u2191 ', prettyBytes(getSpeed(file.progress)), '/s']), _span) : null, ' ']), _uppyDashboardItemProgressInfo) : null, ' ']), _uppyDashboardItemProgress), ' ']), _uppyDashboardItemPreview), ' ', (_uppyDashboardItemInfo = document.createElement('div'), _uppyDashboardItemInfo.setAttribute('class', 'UppyDashboardItem-info'), _appendChild(_uppyDashboardItemInfo, [' ', (_uppyDashboardItemName = document.createElement('h4'), _uppyDashboardItemName.setAttribute('title', '' + String(fileName) + ''), _uppyDashboardItemName.setAttribute('class', 'UppyDashboardItem-name'), _appendChild(_uppyDashboardItemName, [' ', file.uploadURL ? (_a = document.createElement('a'), _a.setAttribute('href', '' + String(file.uploadURL) + ''), _a.setAttribute('target', '_blank'), _appendChild(_a, [' ', file.extension ? truncatedFileName + '.' + file.extension : truncatedFileName, ' ']), _a) : file.extension ? truncatedFileName + '.' + file.extension : truncatedFileName, ' ']), _uppyDashboardItemName), ' ', (_uppyDashboardItemStatus = document.createElement('div'), _uppyDashboardItemStatus.setAttribute('class', 'UppyDashboardItem-status'), _appendChild(_uppyDashboardItemStatus, [' ', file.data.size && (_uppyDashboardItemStatusSize = document.createElement('div'), _uppyDashboardItemStatusSize.setAttribute('class', 'UppyDashboardItem-statusSize'), _appendChild(_uppyDashboardItemStatusSize, [prettyBytes(file.data.size)]), _uppyDashboardItemStatusSize), ' ', file.source && (_uppyDashboardItemSourceIcon = document.createElement('div'), _uppyDashboardItemSourceIcon.setAttribute('class', 'UppyDashboardItem-sourceIcon'), _appendChild(_uppyDashboardItemSourceIcon, [' ', acquirers.map(function (acquirer) {
     var _span2;
 
     if (acquirer.id === file.source) return _span2 = document.createElement('span'), _span2.setAttribute('title', '' + String(props.i18n('fileSource')) + ': ' + String(acquirer.name) + ''), _appendChild(_span2, [acquirer.icon()]), _span2;
@@ -17332,10 +17333,10 @@ module.exports = function fileItem(props) {
     }).catch(props.log);
   }, _uppyDashboardItemCopyLink.setAttribute('class', 'UppyDashboardItem-copyLink'), _appendChild(_uppyDashboardItemCopyLink, [iconCopy()]), _uppyDashboardItemCopyLink) : null, ' ']), _uppyDashboardItemInfo), ' ', (_uppyDashboardItemAction = document.createElement('div'), _uppyDashboardItemAction.setAttribute('class', 'UppyDashboardItem-action'), _appendChild(_uppyDashboardItemAction, [' ', !isUploaded ? (_uppyDashboardItemRemove = document.createElement('button'), _uppyDashboardItemRemove.setAttribute('type', 'button'), _uppyDashboardItemRemove.setAttribute('aria-label', 'Remove file'), _uppyDashboardItemRemove.setAttribute('title', 'Remove file'), _uppyDashboardItemRemove.onclick = function () {
     return props.removeFile(file.id);
-  }, _uppyDashboardItemRemove.setAttribute('class', 'UppyDashboardItem-remove'), _appendChild(_uppyDashboardItemRemove, [' ', (_uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('width', '22'), _uppyIcon.setAttribute('height', '21'), _uppyIcon.setAttribute('viewBox', '0 0 18 17'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_ellipse = document.createElementNS(_svgNamespace, 'ellipse'), _ellipse.setAttribute('cx', '8.62'), _ellipse.setAttribute('cy', '8.383'), _ellipse.setAttribute('rx', '8.62'), _ellipse.setAttribute('ry', '8.383'), _ellipse), ' ', (_path3 = document.createElementNS(_svgNamespace, 'path'), _path3.setAttribute('stroke', '#FFF'), _path3.setAttribute('fill', '#FFF'), _path3.setAttribute('d', 'M11 6.147L10.85 6 8.5 8.284 6.15 6 6 6.147 8.35 8.43 6 10.717l.15.146L8.5 8.578l2.35 2.284.15-.146L8.65 8.43z'), _path3), ' ']), _uppyIcon), ' ']), _uppyDashboardItemRemove) : null, ' ']), _uppyDashboardItemAction), ' ']), _li;
+  }, _uppyDashboardItemRemove.setAttribute('class', 'UppyDashboardItem-remove'), _appendChild(_uppyDashboardItemRemove, [' ', (_uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '60'), _uppyIcon.setAttribute('height', '60'), _uppyIcon.setAttribute('viewBox', '0 0 60 60'), _uppyIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_path3 = document.createElementNS(_svgNamespace, 'path'), _path3.setAttribute('stroke', '#FFF'), _path3.setAttribute('stroke-width', '0.8px'), _path3.setAttribute('fill-rule', 'nonzero'), _path3.setAttribute('vector-effect', 'non-scaling-stroke'), _path3.setAttribute('d', 'M30 1C14 1 1 14 1 30s13 29 29 29 29-13 29-29S46 1 30 1z'), _path3), ' ', (_path4 = document.createElementNS(_svgNamespace, 'path'), _path4.setAttribute('fill', '#FFF'), _path4.setAttribute('vector-effect', 'non-scaling-stroke'), _path4.setAttribute('d', 'M42 39.667L39.667 42 30 32.333 20.333 42 18 39.667 27.667 30 18 20.333 20.333 18 30 27.667 39.667 18 42 20.333 32.333 30z'), _path4), ' ']), _uppyIcon), ' ']), _uppyDashboardItemRemove) : null, ' ']), _uppyDashboardItemAction), ' ']), _li;
 };
 
-},{"../../core/Utils":95,"./FileItemProgress":112,"./getFileTypeIcon":116,"./icons":117,"prettier-bytes":51,"yo-yoify/lib/appendChild":90}],112:[function(require,module,exports){
+},{"../../core/Utils":95,"./FileItemProgress":111,"./getFileTypeIcon":114,"./icons":115,"prettier-bytes":51,"yo-yoify/lib/appendChild":90}],111:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -17356,7 +17357,7 @@ module.exports = function (props) {
   return _uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('width', '70'), _uppyIcon.setAttribute('height', '70'), _uppyIcon.setAttribute('viewBox', '0 0 36 36'), _uppyIcon.setAttribute('class', 'UppyIcon UppyIcon-progressCircle'), _appendChild(_uppyIcon, [' ', (_progressGroup = document.createElementNS(_svgNamespace, 'g'), _progressGroup.setAttribute('class', 'progress-group'), _appendChild(_progressGroup, [' ', (_bg = document.createElementNS(_svgNamespace, 'circle'), _bg.setAttribute('r', '15'), _bg.setAttribute('cx', '18'), _bg.setAttribute('cy', '18'), _bg.setAttribute('stroke-width', '2'), _bg.setAttribute('fill', 'none'), _bg.setAttribute('class', 'bg'), _bg), ' ', (_progress = document.createElementNS(_svgNamespace, 'circle'), _progress.setAttribute('r', '15'), _progress.setAttribute('cx', '18'), _progress.setAttribute('cy', '18'), _progress.setAttribute('transform', 'rotate(-90, 18, 18)'), _progress.setAttribute('stroke-width', '2'), _progress.setAttribute('fill', 'none'), _progress.setAttribute('stroke-dasharray', '' + String(circleLength) + ''), _progress.setAttribute('stroke-dashoffset', '' + String(circleLength - circleLength / 100 * props.progress) + ''), _progress.setAttribute('class', 'progress'), _progress), ' ']), _progressGroup), ' ', (_play = document.createElementNS(_svgNamespace, 'polygon'), _play.setAttribute('transform', 'translate(3, 3)'), _play.setAttribute('points', '12 20 12 10 20 15'), _play.setAttribute('class', 'play'), _play), ' ', (_pause = document.createElementNS(_svgNamespace, 'g'), _pause.setAttribute('transform', 'translate(14.5, 13)'), _pause.setAttribute('class', 'pause'), _appendChild(_pause, [' ', (_rect = document.createElementNS(_svgNamespace, 'rect'), _rect.setAttribute('x', '0'), _rect.setAttribute('y', '0'), _rect.setAttribute('width', '2'), _rect.setAttribute('height', '10'), _rect.setAttribute('rx', '0'), _rect), ' ', (_rect2 = document.createElementNS(_svgNamespace, 'rect'), _rect2.setAttribute('x', '5'), _rect2.setAttribute('y', '0'), _rect2.setAttribute('width', '2'), _rect2.setAttribute('height', '10'), _rect2.setAttribute('rx', '0'), _rect2), ' ']), _pause), ' ', (_check = document.createElementNS(_svgNamespace, 'polygon'), _check.setAttribute('transform', 'translate(2, 3)'), _check.setAttribute('points', '14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634'), _check.setAttribute('class', 'check'), _check), ' ', (_cancel = document.createElementNS(_svgNamespace, 'polygon'), _cancel.setAttribute('transform', 'translate(2, 2)'), _cancel.setAttribute('points', '19.8856516 11.0625 16 14.9481516 12.1019737 11.0625 11.0625 12.1143484 14.9481516 16 11.0625 19.8980263 12.1019737 20.9375 16 17.0518484 19.8856516 20.9375 20.9375 19.8980263 17.0518484 16 20.9375 12'), _cancel.setAttribute('class', 'cancel'), _cancel)]), _uppyIcon;
 };
 
-},{"yo-yoify/lib/appendChild":90}],113:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],112:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -17393,7 +17394,7 @@ module.exports = function (props) {
   }), ' ']), _ul;
 };
 
-},{"./ActionBrowseTagline":108,"./FileItem":111,"./icons":117,"yo-yoify/lib/appendChild":90}],114:[function(require,module,exports){
+},{"./ActionBrowseTagline":107,"./FileItem":110,"./icons":115,"yo-yoify/lib/appendChild":90}],113:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -17404,7 +17405,7 @@ var _require = require('./icons'),
     localIcon = _require.localIcon;
 
 module.exports = function (props) {
-  var _uppyDashboardInput, _uppyDashboardTabName, _uppyDashboardTabBtn, _uppyDashboardTab, _uppyDashboardTabsList, _nav, _uppyDashboardTabs2;
+  var _uppyDashboardInput, _uppyDashboardTabName, _uppyDashboardTabBtn, _uppyDashboardTab, _uppyDashboardTabsList, _uppyDashboardTabs2;
 
   var isHidden = Object.keys(props.files).length === 0;
 
@@ -17420,34 +17421,18 @@ module.exports = function (props) {
 
   var input = (_uppyDashboardInput = document.createElement('input'), 'true' && _uppyDashboardInput.setAttribute('hidden', 'hidden'), _uppyDashboardInput.setAttribute('aria-hidden', 'true'), _uppyDashboardInput.setAttribute('tabindex', '-1'), _uppyDashboardInput.setAttribute('type', 'file'), _uppyDashboardInput.setAttribute('name', 'files[]'), 'true' && _uppyDashboardInput.setAttribute('multiple', 'multiple'), _uppyDashboardInput.onchange = props.handleInputChange, _uppyDashboardInput.setAttribute('class', 'UppyDashboard-input'), _uppyDashboardInput);
 
-  return _uppyDashboardTabs2 = document.createElement('div'), _uppyDashboardTabs2.setAttribute('class', 'UppyDashboardTabs'), _appendChild(_uppyDashboardTabs2, [' ', (_nav = document.createElement('nav'), _appendChild(_nav, [' ', (_uppyDashboardTabsList = document.createElement('ul'), _uppyDashboardTabsList.setAttribute('role', 'tablist'), _uppyDashboardTabsList.setAttribute('class', 'UppyDashboardTabs-list'), _appendChild(_uppyDashboardTabsList, [' ', (_uppyDashboardTab = document.createElement('li'), _uppyDashboardTab.setAttribute('class', 'UppyDashboardTab'), _appendChild(_uppyDashboardTab, [' ', (_uppyDashboardTabBtn = document.createElement('button'), _uppyDashboardTabBtn.setAttribute('type', 'button'), _uppyDashboardTabBtn.setAttribute('role', 'tab'), _uppyDashboardTabBtn.setAttribute('tabindex', '0'), _uppyDashboardTabBtn.onclick = function (ev) {
+  return _uppyDashboardTabs2 = document.createElement('div'), _uppyDashboardTabs2.setAttribute('class', 'UppyDashboardTabs'), _appendChild(_uppyDashboardTabs2, [' ', (_uppyDashboardTabsList = document.createElement('ul'), _uppyDashboardTabsList.setAttribute('role', 'tablist'), _uppyDashboardTabsList.setAttribute('class', 'UppyDashboardTabs-list'), _appendChild(_uppyDashboardTabsList, [' ', (_uppyDashboardTab = document.createElement('li'), _uppyDashboardTab.setAttribute('role', 'presentation'), _uppyDashboardTab.setAttribute('class', 'UppyDashboardTab'), _appendChild(_uppyDashboardTab, [' ', (_uppyDashboardTabBtn = document.createElement('button'), _uppyDashboardTabBtn.setAttribute('type', 'button'), _uppyDashboardTabBtn.setAttribute('role', 'tab'), _uppyDashboardTabBtn.setAttribute('tabindex', '0'), _uppyDashboardTabBtn.onclick = function (ev) {
     input.click();
   }, _uppyDashboardTabBtn.setAttribute('class', 'UppyDashboardTab-btn'), _appendChild(_uppyDashboardTabBtn, [' ', localIcon(), ' ', (_uppyDashboardTabName = document.createElement('h5'), _uppyDashboardTabName.setAttribute('class', 'UppyDashboardTab-name'), _appendChild(_uppyDashboardTabName, [props.i18n('myDevice')]), _uppyDashboardTabName), ' ']), _uppyDashboardTabBtn), ' ', input, ' ']), _uppyDashboardTab), ' ', props.acquirers.map(function (target) {
     var _uppyDashboardTabName2, _uppyDashboardTabBtn2, _uppyDashboardTab2;
 
-    return _uppyDashboardTab2 = document.createElement('li'), _uppyDashboardTab2.setAttribute('class', 'UppyDashboardTab'), _appendChild(_uppyDashboardTab2, [' ', (_uppyDashboardTabBtn2 = document.createElement('button'), _uppyDashboardTabBtn2.setAttribute('type', 'button'), _uppyDashboardTabBtn2.setAttribute('role', 'tab'), _uppyDashboardTabBtn2.setAttribute('tabindex', '0'), _uppyDashboardTabBtn2.setAttribute('aria-controls', 'UppyDashboardContent-panel--' + String(target.id) + ''), _uppyDashboardTabBtn2.setAttribute('aria-selected', '' + String(target.isHidden ? 'false' : 'true') + ''), _uppyDashboardTabBtn2.onclick = function () {
+    return _uppyDashboardTab2 = document.createElement('li'), _uppyDashboardTab2.setAttribute('role', 'presentation'), _uppyDashboardTab2.setAttribute('class', 'UppyDashboardTab'), _appendChild(_uppyDashboardTab2, [' ', (_uppyDashboardTabBtn2 = document.createElement('button'), _uppyDashboardTabBtn2.setAttribute('type', 'button'), _uppyDashboardTabBtn2.setAttribute('role', 'tab'), _uppyDashboardTabBtn2.setAttribute('tabindex', '0'), _uppyDashboardTabBtn2.setAttribute('aria-controls', 'UppyDashboardContent-panel--' + String(target.id) + ''), _uppyDashboardTabBtn2.setAttribute('aria-selected', '' + String(target.isHidden ? 'false' : 'true') + ''), _uppyDashboardTabBtn2.onclick = function () {
       return props.showPanel(target.id);
     }, _uppyDashboardTabBtn2.setAttribute('class', 'UppyDashboardTab-btn'), _appendChild(_uppyDashboardTabBtn2, [' ', target.icon(), ' ', (_uppyDashboardTabName2 = document.createElement('h5'), _uppyDashboardTabName2.setAttribute('class', 'UppyDashboardTab-name'), _appendChild(_uppyDashboardTabName2, [target.name]), _uppyDashboardTabName2), ' ']), _uppyDashboardTabBtn2), ' ']), _uppyDashboardTab2;
-  }), ' ']), _uppyDashboardTabsList), ' ']), _nav), ' ']), _uppyDashboardTabs2;
+  }), ' ']), _uppyDashboardTabsList), ' ']), _uppyDashboardTabs2;
 };
 
-},{"./ActionBrowseTagline":108,"./icons":117,"yo-yoify/lib/appendChild":90}],115:[function(require,module,exports){
-'use strict';
-
-var _appendChild = require('yo-yoify/lib/appendChild');
-
-var _require = require('./icons'),
-    uploadIcon = _require.uploadIcon;
-
-module.exports = function (props) {
-  var _uppyDashboardUploadCount, _uppyButtonCircular;
-
-  props = props || {};
-
-  return _uppyButtonCircular = document.createElement('button'), _uppyButtonCircular.setAttribute('type', 'button'), _uppyButtonCircular.setAttribute('title', '' + String(props.i18n('uploadAllNewFiles')) + ''), _uppyButtonCircular.setAttribute('aria-label', '' + String(props.i18n('uploadAllNewFiles')) + ''), _uppyButtonCircular.onclick = props.startUpload, _uppyButtonCircular.setAttribute('class', 'UppyButton--circular\n                   UppyButton--blue\n                   UppyDashboard-upload'), _appendChild(_uppyButtonCircular, [' ', uploadIcon(), ' ', (_uppyDashboardUploadCount = document.createElement('sup'), _uppyDashboardUploadCount.setAttribute('title', '' + String(props.i18n('numberOfSelectedFiles')) + ''), _uppyDashboardUploadCount.setAttribute('aria-label', '' + String(props.i18n('numberOfSelectedFiles')) + ''), _uppyDashboardUploadCount.setAttribute('class', 'UppyDashboard-uploadCount'), _appendChild(_uppyDashboardUploadCount, [' ', props.newFileCount]), _uppyDashboardUploadCount), ' ']), _uppyButtonCircular;
-};
-
-},{"./icons":117,"yo-yoify/lib/appendChild":90}],116:[function(require,module,exports){
+},{"./ActionBrowseTagline":107,"./icons":115,"yo-yoify/lib/appendChild":90}],114:[function(require,module,exports){
 'use strict';
 
 var _require = require('./icons'),
@@ -17469,7 +17454,7 @@ module.exports = function getIconByMime(fileType) {
 
   if (fileTypeGeneral === 'text') {
     return {
-      color: '#000',
+      color: '#cbcbcb',
       icon: iconText()
     };
   }
@@ -17505,7 +17490,7 @@ module.exports = function getIconByMime(fileType) {
   return defaultChoice;
 };
 
-},{"./icons":117}],117:[function(require,module,exports){
+},{"./icons":115}],115:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -17598,21 +17583,21 @@ function iconFile() {
 }
 
 function iconText() {
-  var _path19, _path20, _uppyIcon15;
+  var _path19, _uppyIcon15;
 
-  return _uppyIcon15 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon15.setAttribute('aria-hidden', 'true'), _uppyIcon15.setAttribute('viewBox', '0 0 64 64'), _uppyIcon15.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon15, [' ', (_path19 = document.createElementNS(_svgNamespace, 'path'), _path19.setAttribute('d', 'M8 64h48V0H22.586L8 14.586V64zm46-2H10V16h14V2h30v60zM11.414 14L22 3.414V14H11.414z'), _path19), ' ', (_path20 = document.createElementNS(_svgNamespace, 'path'), _path20.setAttribute('d', 'M32 13h14v2H32zM18 23h28v2H18zM18 33h28v2H18zM18 43h28v2H18zM18 53h28v2H18z'), _path20), ' ']), _uppyIcon15;
+  return _uppyIcon15 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon15.setAttribute('aria-hidden', 'true'), _uppyIcon15.setAttribute('width', '62'), _uppyIcon15.setAttribute('height', '62'), _uppyIcon15.setAttribute('viewBox', '0 0 62 62'), _uppyIcon15.setAttribute('xmlns', 'http://www.w3.org/2000/svg'), _uppyIcon15.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon15, [' ', (_path19 = document.createElementNS(_svgNamespace, 'path'), _path19.setAttribute('d', 'M4.309 4.309h24.912v53.382h-6.525v3.559h16.608v-3.559h-6.525V4.309h24.912v10.676h3.559V.75H.75v14.235h3.559z'), _path19.setAttribute('fill-rule', 'nonzero'), _path19.setAttribute('fill', '#000'), _path19), ' ']), _uppyIcon15;
 }
 
 function uploadIcon() {
-  var _path21, _path22, _uppyIcon16;
+  var _path20, _path21, _uppyIcon16;
 
-  return _uppyIcon16 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon16.setAttribute('aria-hidden', 'true'), _uppyIcon16.setAttribute('width', '37'), _uppyIcon16.setAttribute('height', '33'), _uppyIcon16.setAttribute('viewBox', '0 0 37 33'), _uppyIcon16.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon16, [' ', (_path21 = document.createElementNS(_svgNamespace, 'path'), _path21.setAttribute('d', 'M29.107 24.5c4.07 0 7.393-3.355 7.393-7.442 0-3.994-3.105-7.307-7.012-7.502l.468.415C29.02 4.52 24.34.5 18.886.5c-4.348 0-8.27 2.522-10.138 6.506l.446-.288C4.394 6.782.5 10.758.5 15.608c0 4.924 3.906 8.892 8.76 8.892h4.872c.635 0 1.095-.467 1.095-1.104 0-.636-.46-1.103-1.095-1.103H9.26c-3.644 0-6.63-3.035-6.63-6.744 0-3.71 2.926-6.685 6.57-6.685h.964l.14-.28.177-.362c1.477-3.4 4.744-5.576 8.347-5.576 4.58 0 8.45 3.452 9.01 8.072l.06.536.05.446h1.101c2.87 0 5.204 2.37 5.204 5.295s-2.333 5.296-5.204 5.296h-6.062c-.634 0-1.094.467-1.094 1.103 0 .637.46 1.104 1.094 1.104h6.12z'), _path21), ' ', (_path22 = document.createElementNS(_svgNamespace, 'path'), _path22.setAttribute('d', 'M23.196 18.92l-4.828-5.258-.366-.4-.368.398-4.828 5.196a1.13 1.13 0 0 0 0 1.546c.428.46 1.11.46 1.537 0l3.45-3.71-.868-.34v15.03c0 .64.445 1.118 1.075 1.118.63 0 1.075-.48 1.075-1.12V16.35l-.867.34 3.45 3.712a1 1 0 0 0 .767.345 1 1 0 0 0 .77-.345c.416-.33.416-1.036 0-1.485v.003z'), _path22), ' ']), _uppyIcon16;
+  return _uppyIcon16 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon16.setAttribute('aria-hidden', 'true'), _uppyIcon16.setAttribute('width', '37'), _uppyIcon16.setAttribute('height', '33'), _uppyIcon16.setAttribute('viewBox', '0 0 37 33'), _uppyIcon16.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon16, [' ', (_path20 = document.createElementNS(_svgNamespace, 'path'), _path20.setAttribute('d', 'M29.107 24.5c4.07 0 7.393-3.355 7.393-7.442 0-3.994-3.105-7.307-7.012-7.502l.468.415C29.02 4.52 24.34.5 18.886.5c-4.348 0-8.27 2.522-10.138 6.506l.446-.288C4.394 6.782.5 10.758.5 15.608c0 4.924 3.906 8.892 8.76 8.892h4.872c.635 0 1.095-.467 1.095-1.104 0-.636-.46-1.103-1.095-1.103H9.26c-3.644 0-6.63-3.035-6.63-6.744 0-3.71 2.926-6.685 6.57-6.685h.964l.14-.28.177-.362c1.477-3.4 4.744-5.576 8.347-5.576 4.58 0 8.45 3.452 9.01 8.072l.06.536.05.446h1.101c2.87 0 5.204 2.37 5.204 5.295s-2.333 5.296-5.204 5.296h-6.062c-.634 0-1.094.467-1.094 1.103 0 .637.46 1.104 1.094 1.104h6.12z'), _path20), ' ', (_path21 = document.createElementNS(_svgNamespace, 'path'), _path21.setAttribute('d', 'M23.196 18.92l-4.828-5.258-.366-.4-.368.398-4.828 5.196a1.13 1.13 0 0 0 0 1.546c.428.46 1.11.46 1.537 0l3.45-3.71-.868-.34v15.03c0 .64.445 1.118 1.075 1.118.63 0 1.075-.48 1.075-1.12V16.35l-.867.34 3.45 3.712a1 1 0 0 0 .767.345 1 1 0 0 0 .77-.345c.416-.33.416-1.036 0-1.485v.003z'), _path21), ' ']), _uppyIcon16;
 }
 
 function dashboardBgIcon() {
-  var _path23, _uppyIcon17;
+  var _path22, _uppyIcon17;
 
-  return _uppyIcon17 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon17.setAttribute('aria-hidden', 'true'), _uppyIcon17.setAttribute('width', '48'), _uppyIcon17.setAttribute('height', '69'), _uppyIcon17.setAttribute('viewBox', '0 0 48 69'), _uppyIcon17.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon17, [' ', (_path23 = document.createElementNS(_svgNamespace, 'path'), _path23.setAttribute('d', 'M.5 1.5h5zM10.5 1.5h5zM20.5 1.5h5zM30.504 1.5h5zM45.5 11.5v5zM45.5 21.5v5zM45.5 31.5v5zM45.5 41.502v5zM45.5 51.502v5zM45.5 61.5v5zM45.5 66.502h-4.998zM35.503 66.502h-5zM25.5 66.502h-5zM15.5 66.502h-5zM5.5 66.502h-5zM.5 66.502v-5zM.5 56.502v-5zM.5 46.503V41.5zM.5 36.5v-5zM.5 26.5v-5zM.5 16.5v-5zM.5 6.5V1.498zM44.807 11H36V2.195z'), _path23), ' ']), _uppyIcon17;
+  return _uppyIcon17 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon17.setAttribute('aria-hidden', 'true'), _uppyIcon17.setAttribute('width', '48'), _uppyIcon17.setAttribute('height', '69'), _uppyIcon17.setAttribute('viewBox', '0 0 48 69'), _uppyIcon17.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon17, [' ', (_path22 = document.createElementNS(_svgNamespace, 'path'), _path22.setAttribute('d', 'M.5 1.5h5zM10.5 1.5h5zM20.5 1.5h5zM30.504 1.5h5zM45.5 11.5v5zM45.5 21.5v5zM45.5 31.5v5zM45.5 41.502v5zM45.5 51.502v5zM45.5 61.5v5zM45.5 66.502h-4.998zM35.503 66.502h-5zM25.5 66.502h-5zM15.5 66.502h-5zM5.5 66.502h-5zM.5 66.502v-5zM.5 56.502v-5zM.5 46.503V41.5zM.5 36.5v-5zM.5 26.5v-5zM.5 16.5v-5zM.5 6.5V1.498zM44.807 11H36V2.195z'), _path22), ' ']), _uppyIcon17;
 }
 
 module.exports = {
@@ -17635,7 +17620,7 @@ module.exports = {
   dashboardBgIcon: dashboardBgIcon
 };
 
-},{"yo-yoify/lib/appendChild":90}],118:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],116:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -17858,10 +17843,9 @@ module.exports = function (_Plugin) {
     document.body.classList.add('is-UppyDashboard-open');
     document.body.style.top = '-' + this.savedDocumentScrollPosition + 'px';
 
+    // timeout is needed because yo-yo/morphdom/nanoraf; not needed without nanoraf
     setTimeout(this.setFocusToFirstNode, 100);
     setTimeout(this.updateDashboardElWidth, 100);
-    // to be sure, sometimes when the function runs, container size is still 0
-    // setTimeout(this.updateDashboardElWidth, 500)
   };
 
   DashboardUI.prototype.closeModal = function closeModal() {
@@ -18138,7 +18122,8 @@ module.exports = function (_Plugin) {
 
     if (!this.opts.disableStatusBar) {
       this.core.use(StatusBar, {
-        target: this
+        target: this,
+        hideUploadButton: this.opts.hideUploadButton
       });
     }
 
@@ -18183,7 +18168,7 @@ module.exports = function (_Plugin) {
   return DashboardUI;
 }(Plugin);
 
-},{"../../core/Translator":93,"../../core/Utils":95,"../Informer":132,"../Plugin":135,"../StatusBar":140,"./Dashboard":109,"./icons":117,"drag-drop":15,"prettier-bytes":51}],119:[function(require,module,exports){
+},{"../../core/Translator":93,"../../core/Utils":95,"../Informer":130,"../Plugin":133,"../StatusBar":138,"./Dashboard":108,"./icons":115,"drag-drop":15,"prettier-bytes":51}],117:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -18347,7 +18332,7 @@ module.exports = function (_Plugin) {
   return DragDrop;
 }(Plugin);
 
-},{"../../core/Translator":93,"../../core/Utils":95,"./../Plugin":135,"drag-drop":15,"yo-yoify/lib/appendChild":90}],120:[function(require,module,exports){
+},{"../../core/Translator":93,"../../core/Utils":95,"./../Plugin":133,"drag-drop":15,"yo-yoify/lib/appendChild":90}],118:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -18366,7 +18351,7 @@ module.exports = {
   }
 };
 
-},{"yo-yoify/lib/appendChild":90}],121:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],119:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -18504,7 +18489,7 @@ module.exports = function (_Plugin) {
   return Dropbox;
 }(Plugin);
 
-},{"../../Provider":91,"../../generic-provider-views":105,"../Plugin":135,"./icons":120,"yo-yoify/lib/appendChild":90}],122:[function(require,module,exports){
+},{"../../Provider":91,"../../generic-provider-views":104,"../Plugin":133,"./icons":118,"yo-yoify/lib/appendChild":90}],120:[function(require,module,exports){
 'use strict';
 
 var _onload = require('on-load'),
@@ -18597,7 +18582,7 @@ module.exports = function (_Plugin) {
 //   }
 // }
 
-},{"./Plugin":135,"on-load":48,"yo-yoify/lib/appendChild":90}],123:[function(require,module,exports){
+},{"./Plugin":133,"on-load":48,"yo-yoify/lib/appendChild":90}],121:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -18702,7 +18687,7 @@ module.exports = function (_Plugin) {
   return FileInput;
 }(Plugin);
 
-},{"../core/Translator":93,"../core/Utils":95,"./Plugin":135,"yo-yoify/lib/appendChild":90}],124:[function(require,module,exports){
+},{"../core/Translator":93,"../core/Utils":95,"./Plugin":133,"yo-yoify/lib/appendChild":90}],122:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -18762,7 +18747,7 @@ module.exports = function (_Provider) {
   return FtpProvider;
 }(Provider);
 
-},{"../../Provider":91,"whatwg-fetch":85}],125:[function(require,module,exports){
+},{"../../Provider":91,"whatwg-fetch":85}],123:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -18801,7 +18786,7 @@ module.exports = {
   }
 };
 
-},{"yo-yoify/lib/appendChild":90}],126:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],124:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19002,7 +18987,7 @@ module.exports = function (_Plugin) {
           fileId = fileIndex;
         }
       }
-      _this3.core.emitter.emit('core:upload-success', fileId);
+      _this3.core.emitter.emit('core:upload-success', fileId, tagFile, '');
     }, 2000, tagFile);
   };
 
@@ -19022,7 +19007,7 @@ module.exports = function (_Plugin) {
   return Ftp;
 }(Plugin);
 
-},{"../../generic-provider-views":105,"../Plugin":135,"./FtpProvider":124,"./icons":125,"yo-yoify/lib/appendChild":90}],127:[function(require,module,exports){
+},{"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19285,7 +19270,7 @@ IndexedDBStore.isSupported = isSupported;
 
 module.exports = IndexedDBStore;
 
-},{"es6-promise":29,"prettier-bytes":51}],128:[function(require,module,exports){
+},{"es6-promise":29,"prettier-bytes":51}],126:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19386,7 +19371,7 @@ module.exports = function () {
   return MetaDataStore;
 }();
 
-},{}],129:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19483,7 +19468,7 @@ ServiceWorkerStore.isSupported = isSupported;
 
 module.exports = ServiceWorkerStore;
 
-},{"es6-promise":29}],130:[function(require,module,exports){
+},{"es6-promise":29}],128:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19757,7 +19742,7 @@ module.exports = function (_Plugin) {
   return GoldenRetriever;
 }(Plugin);
 
-},{"../Plugin":135,"./IndexedDBStore":127,"./MetaDataStore":128,"./ServiceWorkerStore":129}],131:[function(require,module,exports){
+},{"../Plugin":133,"./IndexedDBStore":125,"./MetaDataStore":126,"./ServiceWorkerStore":127}],129:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19900,7 +19885,7 @@ module.exports = function (_Plugin) {
   return GoogleDrive;
 }(Plugin);
 
-},{"../../Provider":91,"../../generic-provider-views":105,"../Plugin":135,"yo-yoify/lib/appendChild":90}],132:[function(require,module,exports){
+},{"../../Provider":91,"../../generic-provider-views":104,"../Plugin":133,"yo-yoify/lib/appendChild":90}],130:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -19975,9 +19960,7 @@ module.exports = function (_Plugin) {
 
     var style = 'background-color: ' + this.opts.typeColors[type].bg + '; color: ' + this.opts.typeColors[type].text + ';';
 
-    // @TODO add aria-live for screen-readers
-    // maybe details.length < N to set bubble size
-    return _uppy = document.createElement('div'), _uppy.setAttribute('style', '' + String(style) + ''), _uppy.setAttribute('aria-hidden', '' + String(isHidden) + ''), _uppy.setAttribute('class', 'Uppy UppyTheme--default UppyInformer'), _appendChild(_uppy, [' ', (_p = document.createElement('p'), _appendChild(_p, [' ', message, ' ', details ? (_span = document.createElement('span'), _span.setAttribute('style', 'color: ' + String(this.opts.typeColors[type].bg) + ''), _span.setAttribute('data-balloon', '' + String(details) + ''), _span.setAttribute('data-balloon-pos', 'up'), _span.setAttribute('data-balloon-length', 'large'), _span.textContent = '?', _span) : null, ' ']), _p), ' ']), _uppy;
+    return _uppy = document.createElement('div'), _uppy.setAttribute('style', '' + String(style) + ''), _uppy.setAttribute('aria-hidden', '' + String(isHidden) + ''), _uppy.setAttribute('class', 'Uppy UppyInformer'), _appendChild(_uppy, [' ', (_p = document.createElement('p'), _p.setAttribute('role', 'alert'), _appendChild(_p, [' ', message, ' ', details ? (_span = document.createElement('span'), _span.setAttribute('style', 'color: ' + String(this.opts.typeColors[type].bg) + ''), _span.setAttribute('data-balloon', '' + String(details) + ''), _span.setAttribute('data-balloon-pos', 'up'), _span.setAttribute('data-balloon-length', 'large'), _span.textContent = '?', _span) : null, ' ']), _p), ' ']), _uppy;
   };
 
   Informer.prototype.install = function install() {
@@ -19990,7 +19973,7 @@ module.exports = function (_Plugin) {
   return Informer;
 }(Plugin);
 
-},{"./Plugin":135,"yo-yoify/lib/appendChild":90}],133:[function(require,module,exports){
+},{"./Plugin":133,"yo-yoify/lib/appendChild":90}],131:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -20153,7 +20136,7 @@ module.exports = function (_Plugin) {
   return Instagram;
 }(Plugin);
 
-},{"../../Provider":91,"../../generic-provider-views":105,"../Plugin":135,"yo-yoify/lib/appendChild":90}],134:[function(require,module,exports){
+},{"../../Provider":91,"../../generic-provider-views":104,"../Plugin":133,"yo-yoify/lib/appendChild":90}],132:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -20226,7 +20209,7 @@ module.exports = function (_Plugin) {
   return MetaData;
 }(Plugin);
 
-},{"./Plugin":135}],135:[function(require,module,exports){
+},{"./Plugin":133}],133:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -20384,7 +20367,7 @@ module.exports = function () {
   return Plugin;
 }();
 
-},{"../core/Utils":95,"get-form-data":32,"nanoraf":47,"yo-yo":88}],136:[function(require,module,exports){
+},{"../core/Utils":95,"get-form-data":32,"nanoraf":47,"yo-yo":88}],134:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -20451,7 +20434,7 @@ module.exports = function (_Plugin) {
   return ProgressBar;
 }(Plugin);
 
-},{"./Plugin":135,"yo-yoify/lib/appendChild":90}],137:[function(require,module,exports){
+},{"./Plugin":133,"yo-yoify/lib/appendChild":90}],135:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20502,7 +20485,7 @@ module.exports = function (_Plugin) {
   return Redux;
 }(Plugin);
 
-},{"./Plugin":135}],138:[function(require,module,exports){
+},{"./Plugin":133}],136:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -20594,10 +20577,29 @@ module.exports = function (_Plugin) {
   return ReduxDevTools;
 }(Plugin);
 
-},{"./Plugin":135}],139:[function(require,module,exports){
+},{"./Plugin":133}],137:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild'),
+    _setAttribute = function x(el, attr, value) {
+  if (typeof attr === 'object') {
+    for (var i in attr) {
+      if (Object.prototype.hasOwnProperty.call(attr, i)) {
+        x(el, i, attr[i]);
+      }
+    }
+
+    return;
+  }
+
+  if (!attr) return;
+  if (attr === 'className') attr = 'class';
+  if (attr === 'htmlFor') attr = 'for';
+  if (attr.slice(0, 2) === 'on') el[attr] = value;else {
+    if (value === true) value = attr;
+    el.setAttribute(attr, value);
+  }
+},
     _svgNamespace = 'http://www.w3.org/2000/svg';
 
 var throttle = require('lodash.throttle');
@@ -20688,7 +20690,7 @@ function calculateProcessingProgress(files) {
 }
 
 module.exports = function (props) {
-  var _progress, _div, _uppyStatusBar;
+  var _div, _uppyStatusBarActions, _div2;
 
   props = props || {};
 
@@ -20715,43 +20717,64 @@ module.exports = function (props) {
   }
 
   var width = typeof progressValue === 'number' ? progressValue : 100;
+  var isHidden = uploadState === STATE_WAITING && props.hideUploadButton || uploadState === STATE_WAITING && !props.newFiles > 0;
 
-  return _uppyStatusBar = document.createElement('div'), _uppyStatusBar.setAttribute('aria-hidden', '' + String(uploadState === STATE_WAITING) + ''), _uppyStatusBar.setAttribute('title', ''), _uppyStatusBar.setAttribute('class', 'UppyStatusBar is-' + String(uploadState) + ''), _appendChild(_uppyStatusBar, [' ', (_progress = document.createElement('progress'), _progress.setAttribute('style', 'display: none;'), _progress.setAttribute('min', '0'), _progress.setAttribute('max', '100'), _progress.setAttribute('value', '' + String(progressValue) + ''), _progress), ' ', (_div = document.createElement('div'), _div.setAttribute('style', 'width: ' + String(width) + '%'), _div.setAttribute('class', 'UppyStatusBar-progress ' + String(progressMode ? 'is-' + progressMode : '') + ''), _div), ' ', progressBarContent, ' ']), _uppyStatusBar;
+  var statusBarEl = (_div2 = document.createElement('div'), _div2.setAttribute('aria-hidden', '' + String(isHidden) + ''), _div2.setAttribute('class', 'UppyStatusBar is-' + String(uploadState) + ''), _appendChild(_div2, [' ', (_div = document.createElement('div'), _div.setAttribute('style', 'width: ' + String(width) + '%'), _div.setAttribute('role', 'progressbar'), _div.setAttribute('aria-valuemin', '0'), _div.setAttribute('aria-valuemax', '100'), _setAttribute(_div, progressValue ? { 'aria-valuenow': progressValue } : {}, progressValue ? { 'aria-valuenow': progressValue } : {}), _div.setAttribute('class', 'UppyStatusBar-progress ' + String(progressMode ? 'is-' + progressMode : '') + ''), _div), ' ', progressBarContent, ' ', (_uppyStatusBarActions = document.createElement('div'), _uppyStatusBarActions.setAttribute('class', 'UppyStatusBar-actions'), _appendChild(_uppyStatusBarActions, [' ', props.newFiles && !props.hideUploadButton ? UploadBtn(props) : '', ' ', props.error ? RetryBtn(props) : '', ' ']), _uppyStatusBarActions), ' ']), _div2);
+
+  // if (progressValue) {
+  //   statusBarEl.querySelector('.UppyStatusBar-progress').setAttribute('aria-valuenow', progressValue)
+  // }
+
+  return statusBarEl;
+};
+
+var UploadBtn = function UploadBtn(props) {
+  var _uppyStatusBarActionBtn;
+
+  return _uppyStatusBarActionBtn = document.createElement('button'), _uppyStatusBarActionBtn.setAttribute('type', 'button'), _uppyStatusBarActionBtn.setAttribute('aria-label', '' + String(props.i18n('uploadXFiles', { smart_count: props.newFiles })) + ''), _uppyStatusBarActionBtn.onclick = props.startUpload, _uppyStatusBarActionBtn.setAttribute('class', 'UppyStatusBar-actionBtn UppyStatusBar-actionBtn--upload'), _appendChild(_uppyStatusBarActionBtn, [' ', props.inProgress ? props.i18n('uploadXNewFiles', { smart_count: props.newFiles }) : props.i18n('uploadXFiles', { smart_count: props.newFiles }), ' ']), _uppyStatusBarActionBtn;
+};
+
+var RetryBtn = function RetryBtn(props) {
+  var _uppyStatusBarActionBtn2;
+
+  return _uppyStatusBarActionBtn2 = document.createElement('button'), _uppyStatusBarActionBtn2.setAttribute('type', 'button'), _uppyStatusBarActionBtn2.setAttribute('aria-label', '' + String(props.i18n('retryUpload')) + ''), _uppyStatusBarActionBtn2.onclick = props.retryAll, _uppyStatusBarActionBtn2.setAttribute('class', 'UppyStatusBar-actionBtn UppyStatusBar-actionBtn--retry'), _appendChild(_uppyStatusBarActionBtn2, [' ', props.i18n('retry'), ' ']), _uppyStatusBarActionBtn2;
 };
 
 var ProgressBarProcessing = function ProgressBarProcessing(props) {
   var _uppyStatusBarContent;
 
-  return _uppyStatusBarContent = document.createElement('div'), _uppyStatusBarContent.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent, [' ', props.mode === 'determinate' ? Math.round(props.value * 100) + '%\u30FB' : '', ' ', props.message, ' ']), _uppyStatusBarContent;
+  var value = Math.round(props.value * 100);
+
+  return _uppyStatusBarContent = document.createElement('div'), _uppyStatusBarContent.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent, [' ', props.mode === 'determinate' ? value + '%\u30FB' : '', ' ', props.message, ' ']), _uppyStatusBarContent;
 };
 
 var ProgressBarUploading = function ProgressBarUploading(props) {
-  var _uppyStatusBarContent2, _div2, _div3;
+  var _uppyStatusBarContent2, _div3, _div4;
 
-  return _uppyStatusBarContent2 = document.createElement('div'), _uppyStatusBarContent2.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent2, [' ', props.isUploadStarted && !props.isAllComplete ? !props.isAllPaused ? (_div2 = document.createElement('div'), _div2.setAttribute('title', 'Uploading'), _appendChild(_div2, [pauseResumeButtons(props), ' Uploading... ', throttledProgressDetails(props)]), _div2) : (_div3 = document.createElement('div'), _div3.setAttribute('title', 'Paused'), _appendChild(_div3, [pauseResumeButtons(props), ' Paused\u30FB', props.totalProgress, '%']), _div3) : null, ' ']), _uppyStatusBarContent2;
+  return _uppyStatusBarContent2 = document.createElement('div'), _uppyStatusBarContent2.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent2, [' ', props.isUploadStarted && !props.isAllComplete ? !props.isAllPaused ? (_div3 = document.createElement('div'), _div3.setAttribute('title', 'Uploading'), _appendChild(_div3, [pauseResumeButtons(props), ' Uploading... ', throttledProgressDetails(props)]), _div3) : (_div4 = document.createElement('div'), _div4.setAttribute('title', 'Paused'), _appendChild(_div4, [pauseResumeButtons(props), ' Paused\u30FB', props.totalProgress, '%']), _div4) : null, ' ']), _uppyStatusBarContent2;
 };
 
 var ProgressBarComplete = function ProgressBarComplete(_ref) {
-  var _path, _uppyStatusBarAction, _span2, _uppyStatusBarContent3;
+  var _path, _uppyStatusBarStatusIndicator, _span2, _uppyStatusBarContent3;
 
   var totalProgress = _ref.totalProgress,
       i18n = _ref.i18n;
 
-  return _uppyStatusBarContent3 = document.createElement('div'), _uppyStatusBarContent3.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent3, [' ', (_span2 = document.createElement('span'), _span2.setAttribute('title', 'Complete'), _appendChild(_span2, [' ', (_uppyStatusBarAction = document.createElementNS(_svgNamespace, 'svg'), _uppyStatusBarAction.setAttribute('aria-hidden', 'true'), _uppyStatusBarAction.setAttribute('width', '18'), _uppyStatusBarAction.setAttribute('height', '17'), _uppyStatusBarAction.setAttribute('viewBox', '0 0 23 17'), _uppyStatusBarAction.setAttribute('class', 'UppyStatusBar-action UppyIcon'), _appendChild(_uppyStatusBarAction, [' ', (_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M8.944 17L0 7.865l2.555-2.61 6.39 6.525L20.41 0 23 2.645z'), _path), ' ']), _uppyStatusBarAction), ' ', i18n('uploadComplete'), '\u30FB', totalProgress, '% ']), _span2), ' ']), _uppyStatusBarContent3;
+  return _uppyStatusBarContent3 = document.createElement('div'), _uppyStatusBarContent3.setAttribute('role', 'status'), _uppyStatusBarContent3.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent3, [' ', (_span2 = document.createElement('span'), _span2.setAttribute('title', 'Complete'), _appendChild(_span2, [' ', (_uppyStatusBarStatusIndicator = document.createElementNS(_svgNamespace, 'svg'), _uppyStatusBarStatusIndicator.setAttribute('aria-hidden', 'true'), _uppyStatusBarStatusIndicator.setAttribute('width', '18'), _uppyStatusBarStatusIndicator.setAttribute('height', '17'), _uppyStatusBarStatusIndicator.setAttribute('viewBox', '0 0 23 17'), _uppyStatusBarStatusIndicator.setAttribute('class', 'UppyStatusBar-statusIndicator UppyIcon'), _appendChild(_uppyStatusBarStatusIndicator, [' ', (_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M8.944 17L0 7.865l2.555-2.61 6.39 6.525L20.41 0 23 2.645z'), _path), ' ']), _uppyStatusBarStatusIndicator), ' ', i18n('uploadComplete'), '\u30FB', totalProgress, '% ']), _span2), ' ']), _uppyStatusBarContent3;
 };
 
 var ProgressBarError = function ProgressBarError(_ref2) {
-  var _path2, _path3, _path4, _path5, _uppyIcon, _uppyStatusBarAction2, _uppyStatusBarRetryBtn, _uppyStatusBarDetails, _uppyStatusBarContent4;
+  var _strong, _span3, _uppyStatusBarDetails, _uppyStatusBarContent4;
 
   var error = _ref2.error,
       retryAll = _ref2.retryAll,
       i18n = _ref2.i18n;
 
-  return _uppyStatusBarContent4 = document.createElement('div'), _uppyStatusBarContent4.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent4, [' ', (_uppyStatusBarAction2 = document.createElement('button'), _uppyStatusBarAction2.setAttribute('title', '' + String(i18n('retryUpload')) + ''), _uppyStatusBarAction2.setAttribute('aria-label', '' + String(i18n('retryUpload')) + ''), _uppyStatusBarAction2.setAttribute('type', 'button'), _uppyStatusBarAction2.onclick = retryAll, _uppyStatusBarAction2.setAttribute('class', 'UppyStatusBar-action'), _appendChild(_uppyStatusBarAction2, [' ', (_uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('width', '28'), _uppyIcon.setAttribute('height', '31'), _uppyIcon.setAttribute('viewBox', '0 0 16 19'), _uppyIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M16 11a8 8 0 1 1-8-8v2a6 6 0 1 0 6 6h2z'), _path2), ' ', (_path3 = document.createElementNS(_svgNamespace, 'path'), _path3.setAttribute('d', 'M7.9 3H10v2H7.9z'), _path3), (_path4 = document.createElementNS(_svgNamespace, 'path'), _path4.setAttribute('d', 'M8.536.5l3.535 3.536-1.414 1.414L7.12 1.914z'), _path4), (_path5 = document.createElementNS(_svgNamespace, 'path'), _path5.setAttribute('d', 'M10.657 2.621l1.414 1.415L8.536 7.57 7.12 6.157z'), _path5), ' ']), _uppyIcon)]), _uppyStatusBarAction2), ' ', i18n('uploadFailed'), '. ', (_uppyStatusBarRetryBtn = document.createElement('button'), _uppyStatusBarRetryBtn.setAttribute('title', '' + String(i18n('retryUpload')) + ''), _uppyStatusBarRetryBtn.setAttribute('aria-label', '' + String(i18n('retryUpload')) + ''), _uppyStatusBarRetryBtn.setAttribute('type', 'button'), _uppyStatusBarRetryBtn.onclick = retryAll, _uppyStatusBarRetryBtn.setAttribute('class', 'UppyStatusBar-retryBtn'), _appendChild(_uppyStatusBarRetryBtn, [' ', i18n('retry')]), _uppyStatusBarRetryBtn), ' ', (_uppyStatusBarDetails = document.createElement('span'), _uppyStatusBarDetails.setAttribute('data-balloon', '' + String(error) + ''), _uppyStatusBarDetails.setAttribute('data-balloon-pos', 'up'), _uppyStatusBarDetails.setAttribute('data-balloon-length', 'large'), _uppyStatusBarDetails.setAttribute('class', 'UppyStatusBar-details'), _uppyStatusBarDetails.textContent = '?', _uppyStatusBarDetails), ' ']), _uppyStatusBarContent4;
+  return _uppyStatusBarContent4 = document.createElement('div'), _uppyStatusBarContent4.setAttribute('role', 'alert'), _uppyStatusBarContent4.setAttribute('class', 'UppyStatusBar-content'), _appendChild(_uppyStatusBarContent4, [' ', (_strong = document.createElement('strong'), _appendChild(_strong, [i18n('uploadFailed'), '.']), _strong), ' ', (_span3 = document.createElement('span'), _appendChild(_span3, [i18n('pleasePressRetry')]), _span3), ' ', (_uppyStatusBarDetails = document.createElement('span'), _uppyStatusBarDetails.setAttribute('data-balloon', '' + String(error) + ''), _uppyStatusBarDetails.setAttribute('data-balloon-pos', 'up'), _uppyStatusBarDetails.setAttribute('data-balloon-length', 'large'), _uppyStatusBarDetails.setAttribute('class', 'UppyStatusBar-details'), _uppyStatusBarDetails.textContent = '?', _uppyStatusBarDetails), ' ']), _uppyStatusBarContent4;
 };
 
 var pauseResumeButtons = function pauseResumeButtons(props) {
-  var _uppyStatusBarAction3, _path6, _uppyIcon2, _path7, _uppyIcon3, _path8, _uppyIcon4;
+  var _uppyStatusBarStatusIndicator2, _path2, _uppyIcon, _path3, _uppyIcon2, _path4, _uppyIcon3;
 
   var resumableUploads = props.resumableUploads,
       isAllPaused = props.isAllPaused,
@@ -20759,9 +20782,9 @@ var pauseResumeButtons = function pauseResumeButtons(props) {
 
   var title = resumableUploads ? isAllPaused ? i18n('resumeUpload') : i18n('pauseUpload') : i18n('cancelUpload');
 
-  return _uppyStatusBarAction3 = document.createElement('button'), _uppyStatusBarAction3.setAttribute('title', '' + String(title) + ''), _uppyStatusBarAction3.setAttribute('type', 'button'), _uppyStatusBarAction3.onclick = function () {
+  return _uppyStatusBarStatusIndicator2 = document.createElement('button'), _uppyStatusBarStatusIndicator2.setAttribute('title', '' + String(title) + ''), _uppyStatusBarStatusIndicator2.setAttribute('type', 'button'), _uppyStatusBarStatusIndicator2.onclick = function () {
     return togglePauseResume(props);
-  }, _uppyStatusBarAction3.setAttribute('class', 'UppyStatusBar-action'), _appendChild(_uppyStatusBarAction3, [' ', resumableUploads ? isAllPaused ? (_uppyIcon2 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon2.setAttribute('aria-hidden', 'true'), _uppyIcon2.setAttribute('width', '15'), _uppyIcon2.setAttribute('height', '17'), _uppyIcon2.setAttribute('viewBox', '0 0 11 13'), _uppyIcon2.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon2, [' ', (_path6 = document.createElementNS(_svgNamespace, 'path'), _path6.setAttribute('d', 'M1.26 12.534a.67.67 0 0 1-.674.012.67.67 0 0 1-.336-.583v-11C.25.724.38.5.586.382a.658.658 0 0 1 .673.012l9.165 5.5a.66.66 0 0 1 .325.57.66.66 0 0 1-.325.573l-9.166 5.5z'), _path6), ' ']), _uppyIcon2) : (_uppyIcon3 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon3.setAttribute('aria-hidden', 'true'), _uppyIcon3.setAttribute('width', '16'), _uppyIcon3.setAttribute('height', '17'), _uppyIcon3.setAttribute('viewBox', '0 0 12 13'), _uppyIcon3.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon3, [' ', (_path7 = document.createElementNS(_svgNamespace, 'path'), _path7.setAttribute('d', 'M4.888.81v11.38c0 .446-.324.81-.722.81H2.722C2.324 13 2 12.636 2 12.19V.81c0-.446.324-.81.722-.81h1.444c.398 0 .722.364.722.81zM9.888.81v11.38c0 .446-.324.81-.722.81H7.722C7.324 13 7 12.636 7 12.19V.81c0-.446.324-.81.722-.81h1.444c.398 0 .722.364.722.81z'), _path7), ' ']), _uppyIcon3) : (_uppyIcon4 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon4.setAttribute('aria-hidden', 'true'), _uppyIcon4.setAttribute('width', '16px'), _uppyIcon4.setAttribute('height', '16px'), _uppyIcon4.setAttribute('viewBox', '0 0 19 19'), _uppyIcon4.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon4, [' ', (_path8 = document.createElementNS(_svgNamespace, 'path'), _path8.setAttribute('d', 'M17.318 17.232L9.94 9.854 9.586 9.5l-.354.354-7.378 7.378h.707l-.62-.62v.706L9.318 9.94l.354-.354-.354-.354L1.94 1.854v.707l.62-.62h-.706l7.378 7.378.354.354.354-.354 7.378-7.378h-.707l.622.62v-.706L9.854 9.232l-.354.354.354.354 7.378 7.378.708-.707-7.38-7.378v.708l7.38-7.38.353-.353-.353-.353-.622-.622-.353-.353-.354.352-7.378 7.38h.708L2.56 1.23 2.208.88l-.353.353-.622.62-.353.355.352.353 7.38 7.38v-.708l-7.38 7.38-.353.353.352.353.622.622.353.353.354-.353 7.38-7.38h-.708l7.38 7.38z'), _path8), ' ']), _uppyIcon4), ' ']), _uppyStatusBarAction3;
+  }, _uppyStatusBarStatusIndicator2.setAttribute('class', 'UppyStatusBar-statusIndicator'), _appendChild(_uppyStatusBarStatusIndicator2, [' ', resumableUploads ? isAllPaused ? (_uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '15'), _uppyIcon.setAttribute('height', '17'), _uppyIcon.setAttribute('viewBox', '0 0 11 13'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M1.26 12.534a.67.67 0 0 1-.674.012.67.67 0 0 1-.336-.583v-11C.25.724.38.5.586.382a.658.658 0 0 1 .673.012l9.165 5.5a.66.66 0 0 1 .325.57.66.66 0 0 1-.325.573l-9.166 5.5z'), _path2), ' ']), _uppyIcon) : (_uppyIcon2 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon2.setAttribute('aria-hidden', 'true'), _uppyIcon2.setAttribute('width', '16'), _uppyIcon2.setAttribute('height', '17'), _uppyIcon2.setAttribute('viewBox', '0 0 12 13'), _uppyIcon2.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon2, [' ', (_path3 = document.createElementNS(_svgNamespace, 'path'), _path3.setAttribute('d', 'M4.888.81v11.38c0 .446-.324.81-.722.81H2.722C2.324 13 2 12.636 2 12.19V.81c0-.446.324-.81.722-.81h1.444c.398 0 .722.364.722.81zM9.888.81v11.38c0 .446-.324.81-.722.81H7.722C7.324 13 7 12.636 7 12.19V.81c0-.446.324-.81.722-.81h1.444c.398 0 .722.364.722.81z'), _path3), ' ']), _uppyIcon2) : (_uppyIcon3 = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon3.setAttribute('aria-hidden', 'true'), _uppyIcon3.setAttribute('width', '16px'), _uppyIcon3.setAttribute('height', '16px'), _uppyIcon3.setAttribute('viewBox', '0 0 19 19'), _uppyIcon3.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon3, [' ', (_path4 = document.createElementNS(_svgNamespace, 'path'), _path4.setAttribute('d', 'M17.318 17.232L9.94 9.854 9.586 9.5l-.354.354-7.378 7.378h.707l-.62-.62v.706L9.318 9.94l.354-.354-.354-.354L1.94 1.854v.707l.62-.62h-.706l7.378 7.378.354.354.354-.354 7.378-7.378h-.707l.622.62v-.706L9.854 9.232l-.354.354.354.354 7.378 7.378.708-.707-7.38-7.378v.708l7.38-7.38.353-.353-.353-.353-.622-.622-.353-.353-.354.352-7.378 7.38h.708L2.56 1.23 2.208.88l-.353.353-.622.62-.353.355.352.353 7.38 7.38v-.708l-7.38 7.38-.353.353.352.353.622.622.353.353.354-.353 7.38-7.38h-.708l7.38 7.38z'), _path4), ' ']), _uppyIcon3), ' ']), _uppyStatusBarStatusIndicator2;
 };
 
 var togglePauseResume = function togglePauseResume(props) {
@@ -20778,7 +20801,7 @@ var togglePauseResume = function togglePauseResume(props) {
   return props.pauseAll();
 };
 
-},{"lodash.throttle":41,"yo-yoify/lib/appendChild":90}],140:[function(require,module,exports){
+},{"lodash.throttle":41,"yo-yoify/lib/appendChild":90}],138:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -20824,6 +20847,7 @@ module.exports = function (_Plugin) {
         uploading: 'Uploading',
         uploadComplete: 'Upload complete',
         uploadFailed: 'Upload failed',
+        pleasePressRetry: 'Please press Retry to upload again',
         paused: 'Paused',
         error: 'Error',
         retry: 'Retry',
@@ -20831,12 +20855,21 @@ module.exports = function (_Plugin) {
         retryUpload: 'Retry upload',
         resumeUpload: 'Resume upload',
         cancelUpload: 'Cancel upload',
-        pauseUpload: 'Pause upload'
+        pauseUpload: 'Pause upload',
+        uploadXFiles: {
+          0: 'Upload %{smart_count} file',
+          1: 'Upload %{smart_count} files'
+        },
+        uploadXNewFiles: {
+          0: 'Upload +%{smart_count} file',
+          1: 'Upload +%{smart_count} files'
+        }
       }
 
       // set default options
     };var defaultOptions = {
       target: 'body',
+      hideUploadButton: false,
       showProgressDetails: false,
       locale: defaultLocale
 
@@ -20880,6 +20913,9 @@ module.exports = function (_Plugin) {
 
     var uploadStartedFiles = Object.keys(files).filter(function (file) {
       return files[file].progress.uploadStarted;
+    });
+    var newFiles = Object.keys(files).filter(function (file) {
+      return !files[file].progress.uploadStarted;
     });
     var completeFiles = Object.keys(files).filter(function (file) {
       return files[file].progress.uploadComplete;
@@ -20937,12 +20973,15 @@ module.exports = function (_Plugin) {
       resumeAll: this.core.resumeAll,
       retryAll: this.core.retryAll,
       cancelAll: this.core.cancelAll,
+      startUpload: this.core.upload,
       complete: completeFiles.length,
+      newFiles: newFiles.length,
       inProgress: uploadStartedFiles.length,
       totalSpeed: totalSpeed,
       totalETA: totalETA,
       files: state.files,
-      resumableUploads: resumableUploads
+      resumableUploads: resumableUploads,
+      hideUploadButton: this.opts.hideUploadButton
     });
   };
 
@@ -20960,7 +20999,7 @@ module.exports = function (_Plugin) {
   return StatusBarUI;
 }(Plugin);
 
-},{"../../core/Translator":93,"../../core/Utils":95,"../Plugin":135,"./StatusBar":139,"prettier-bytes":51}],141:[function(require,module,exports){
+},{"../../core/Translator":93,"../../core/Utils":95,"../Plugin":133,"./StatusBar":137,"prettier-bytes":51}],139:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21058,7 +21097,7 @@ module.exports = function () {
   return Client;
 }();
 
-},{}],142:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -21132,7 +21171,7 @@ module.exports = function () {
   return TransloaditSocket;
 }();
 
-},{"namespace-emitter":45,"socket.io-client":57,"url-parse":81}],143:[function(require,module,exports){
+},{"namespace-emitter":45,"socket.io-client":57,"url-parse":81}],141:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -21703,7 +21742,7 @@ module.exports = function (_Plugin) {
   return Transloadit;
 }(Plugin);
 
-},{"../../core/Translator":93,"../Plugin":135,"./Client":141,"./Socket":142,"es6-promise":29}],144:[function(require,module,exports){
+},{"../../core/Translator":93,"../Plugin":133,"./Client":139,"./Socket":140,"es6-promise":29}],142:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -22183,7 +22222,7 @@ module.exports = function (_Plugin) {
   return Tus;
 }(Plugin);
 
-},{"../core/UppySocket":94,"../core/Utils":95,"./Plugin":135,"es6-promise":29,"tus-js-client":79,"whatwg-fetch":85}],145:[function(require,module,exports){
+},{"../core/UppySocket":94,"../core/Utils":95,"./Plugin":133,"es6-promise":29,"tus-js-client":79,"whatwg-fetch":85}],143:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -22195,7 +22234,7 @@ module.exports = function (props) {
   return _uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '100'), _uppyIcon.setAttribute('height', '77'), _uppyIcon.setAttribute('viewBox', '0 0 100 77'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M50 32c-7.168 0-13 5.832-13 13s5.832 13 13 13 13-5.832 13-13-5.832-13-13-13z'), _path), ' ', (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M87 13H72c0-7.18-5.82-13-13-13H41c-7.18 0-13 5.82-13 13H13C5.82 13 0 18.82 0 26v38c0 7.18 5.82 13 13 13h74c7.18 0 13-5.82 13-13V26c0-7.18-5.82-13-13-13zM50 68c-12.683 0-23-10.318-23-23s10.317-23 23-23 23 10.318 23 23-10.317 23-23 23z'), _path2), ' ']), _uppyIcon;
 };
 
-},{"yo-yoify/lib/appendChild":90}],146:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],144:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild'),
@@ -22235,7 +22274,7 @@ module.exports = function (props) {
   }, 4), _uppyWebcamContainer.setAttribute('class', 'UppyWebcam-container'), _appendChild(_uppyWebcamContainer, [' ', (_uppyWebcamVideoContainer = document.createElement('div'), _uppyWebcamVideoContainer.setAttribute('class', 'UppyWebcam-videoContainer'), _appendChild(_uppyWebcamVideoContainer, [' ', video, ' ']), _uppyWebcamVideoContainer), ' ', (_uppyWebcamButtonContainer = document.createElement('div'), _uppyWebcamButtonContainer.setAttribute('class', 'UppyWebcam-buttonContainer'), _appendChild(_uppyWebcamButtonContainer, [' ', shouldShowRecordButton ? RecordButton(props) : null, ' ', shouldShowSnapshotButton ? SnapshotButton(props) : null, ' ']), _uppyWebcamButtonContainer), ' ', (_uppyWebcamCanvas = document.createElement('canvas'), _uppyWebcamCanvas.setAttribute('style', 'display: none;'), _uppyWebcamCanvas.setAttribute('class', 'UppyWebcam-canvas'), _uppyWebcamCanvas), ' ']), _uppyWebcamContainer;
 };
 
-},{"./RecordButton":148,"./SnapshotButton":151,"on-load":48,"yo-yoify/lib/appendChild":90}],147:[function(require,module,exports){
+},{"./RecordButton":146,"./SnapshotButton":149,"on-load":48,"yo-yoify/lib/appendChild":90}],145:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -22246,7 +22285,7 @@ module.exports = function (props) {
   return _uppyWebcamPermissons = document.createElement('div'), _uppyWebcamPermissons.setAttribute('class', 'uppy-Webcam-permissons'), _appendChild(_uppyWebcamPermissons, [' ', (_h = document.createElement('h1'), _h.textContent = 'Please allow access to your camera', _h), ' ', (_p = document.createElement('p'), _appendChild(_p, ['You have been prompted to allow camera access from this site.', (_br = document.createElement('br'), _br), ' In order to take pictures with your camera you must approve this request.']), _p), ' ']), _uppyWebcamPermissons;
 };
 
-},{"yo-yoify/lib/appendChild":90}],148:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],146:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -22270,7 +22309,7 @@ module.exports = function RecordButton(_ref) {
   return _uppyButtonCircular2 = document.createElement('button'), _uppyButtonCircular2.setAttribute('type', 'button'), _uppyButtonCircular2.setAttribute('title', 'Begin Recording'), _uppyButtonCircular2.setAttribute('aria-label', 'Begin Recording'), _uppyButtonCircular2.onclick = onStartRecording, _uppyButtonCircular2.setAttribute('class', 'UppyButton--circular UppyButton--red UppyButton--sizeM UppyWebcam-recordButton'), _appendChild(_uppyButtonCircular2, [' ', RecordStartIcon(), ' ']), _uppyButtonCircular2;
 };
 
-},{"./RecordStartIcon":149,"./RecordStopIcon":150,"yo-yoify/lib/appendChild":90}],149:[function(require,module,exports){
+},{"./RecordStartIcon":147,"./RecordStopIcon":148,"yo-yoify/lib/appendChild":90}],147:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -22282,7 +22321,7 @@ module.exports = function (props) {
   return _uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '100'), _uppyIcon.setAttribute('height', '100'), _uppyIcon.setAttribute('viewBox', '0 0 100 100'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_circle = document.createElementNS(_svgNamespace, 'circle'), _circle.setAttribute('cx', '50'), _circle.setAttribute('cy', '50'), _circle.setAttribute('r', '40'), _circle), ' ']), _uppyIcon;
 };
 
-},{"yo-yoify/lib/appendChild":90}],150:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],148:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -22294,7 +22333,7 @@ module.exports = function (props) {
   return _uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '100'), _uppyIcon.setAttribute('height', '100'), _uppyIcon.setAttribute('viewBox', '0 0 100 100'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_rect = document.createElementNS(_svgNamespace, 'rect'), _rect.setAttribute('x', '15'), _rect.setAttribute('y', '15'), _rect.setAttribute('width', '70'), _rect.setAttribute('height', '70'), _rect), ' ']), _uppyIcon;
 };
 
-},{"yo-yoify/lib/appendChild":90}],151:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],149:[function(require,module,exports){
 'use strict';
 
 var _appendChild = require('yo-yoify/lib/appendChild');
@@ -22309,7 +22348,7 @@ module.exports = function SnapshotButton(_ref) {
   return _uppyButtonCircular = document.createElement('button'), _uppyButtonCircular.setAttribute('type', 'button'), _uppyButtonCircular.setAttribute('title', 'Take a snapshot'), _uppyButtonCircular.setAttribute('aria-label', 'Take a snapshot'), _uppyButtonCircular.onclick = onSnapshot, _uppyButtonCircular.setAttribute('class', 'UppyButton--circular UppyButton--red UppyButton--sizeM UppyWebcam-recordButton'), _appendChild(_uppyButtonCircular, [' ', CameraIcon(), ' ']), _uppyButtonCircular;
 };
 
-},{"./CameraIcon":145,"yo-yoify/lib/appendChild":90}],152:[function(require,module,exports){
+},{"./CameraIcon":143,"yo-yoify/lib/appendChild":90}],150:[function(require,module,exports){
 'use strict';
 
 var _svgNamespace = 'http://www.w3.org/2000/svg',
@@ -22321,7 +22360,7 @@ module.exports = function (props) {
   return _uppyIcon = document.createElementNS(_svgNamespace, 'svg'), _uppyIcon.setAttribute('aria-hidden', 'true'), _uppyIcon.setAttribute('width', '18'), _uppyIcon.setAttribute('height', '21'), _uppyIcon.setAttribute('viewBox', '0 0 18 21'), _uppyIcon.setAttribute('class', 'UppyIcon'), _appendChild(_uppyIcon, [' ', (_path = document.createElementNS(_svgNamespace, 'path'), _path.setAttribute('d', 'M14.8 16.9c1.9-1.7 3.2-4.1 3.2-6.9 0-5-4-9-9-9s-9 4-9 9c0 2.8 1.2 5.2 3.2 6.9C1.9 17.9.5 19.4 0 21h3c1-1.9 11-1.9 12 0h3c-.5-1.6-1.9-3.1-3.2-4.1zM9 4c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6z'), _path), ' ', (_path2 = document.createElementNS(_svgNamespace, 'path'), _path2.setAttribute('d', 'M9 14c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zM8 8c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1c0-.5.4-1 1-1z'), _path2), ' ']), _uppyIcon;
 };
 
-},{"yo-yoify/lib/appendChild":90}],153:[function(require,module,exports){
+},{"yo-yoify/lib/appendChild":90}],151:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -22687,14 +22726,14 @@ module.exports = function (_Plugin) {
   return Webcam;
 }(Plugin);
 
-},{"../../core/Translator":93,"../../core/Utils":95,"../Plugin":135,"./CameraScreen":146,"./PermissionsScreen":147,"./WebcamIcon":152,"./supportsMediaRecorder":154,"es6-promise":29}],154:[function(require,module,exports){
+},{"../../core/Translator":93,"../../core/Utils":95,"../Plugin":133,"./CameraScreen":144,"./PermissionsScreen":145,"./WebcamIcon":150,"./supportsMediaRecorder":152,"es6-promise":29}],152:[function(require,module,exports){
 'use strict';
 
 module.exports = function supportsMediaRecorder() {
   return typeof MediaRecorder === 'function' && !!MediaRecorder.prototype && typeof MediaRecorder.prototype.start === 'function';
 };
 
-},{}],155:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -23023,7 +23062,7 @@ module.exports = function (_Plugin) {
   return XHRUpload;
 }(Plugin);
 
-},{"../core/Translator":93,"../core/UppySocket":94,"../core/Utils":95,"./Plugin":135,"cuid":12,"es6-promise":29}],156:[function(require,module,exports){
+},{"../core/Translator":93,"../core/UppySocket":94,"../core/Utils":95,"./Plugin":133,"cuid":12,"es6-promise":29}],154:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -23080,7 +23119,7 @@ module.exports = function defaultStore() {
   return new DefaultStore();
 };
 
-},{}],157:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -23574,6 +23613,6 @@ module.exports = function (input) {
 	return null;
 };
 
-},{}]},{},[106])(106)
+},{}]},{},[105])(105)
 });
 //# sourceMappingURL=uppy.js.map
