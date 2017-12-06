@@ -18804,6 +18804,7 @@ var Plugin = require('../Plugin');
 var FtpProvider = require('./FtpProvider');
 var View = require('../../generic-provider-views');
 var icons = require('./icons');
+var Utils = require('../../core/Utils');
 
 module.exports = function (_Plugin) {
   _inherits(Ftp, _Plugin);
@@ -18958,6 +18959,8 @@ module.exports = function (_Plugin) {
   Ftp.prototype.addFile = function addFile(file) {
     var _this3 = this;
 
+    var isCheckbox = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
     var tagFile = {
       source: this.id,
       data: this.getItemData(file),
@@ -18976,19 +18979,30 @@ module.exports = function (_Plugin) {
       }
     };
 
-    this.core.emitter.emit('core:file-add', tagFile);
-    setTimeout(function (tagFile) {
-      var fileId = void 0;
-      var files = _this3.getPluginState().files;
-      // Find file in this collection and get id
-      // Then invoke upload success automatically
-      for (var fileIndex in files) {
-        if (tagFile.name === files[fileIndex].name) {
-          fileId = fileIndex;
-        }
+    Utils.getFileType(tagFile).then(function (fileType) {
+      // if (fileType && Utils.isPreviewSupported(fileType)) {
+      //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
+      // }
+      _this3.core.log('Adding remote file');
+      _this3.core.addFile(tagFile);
+      if (!isCheckbox) {
+        _this3.view.donePicking();
       }
-      _this3.core.emitter.emit('core:upload-success', fileId, tagFile, '');
-    }, 2000, tagFile);
+    });
+
+    // this.core.emitter.emit('core:file-add', tagFile)
+    // setTimeout((tagFile) => {
+    //   let fileId
+    //   let files = this.getPluginState().files
+    //   // Find file in this collection and get id
+    //   // Then invoke upload success automatically
+    //   for (let fileIndex in files) {
+    //     if (tagFile.name === files[fileIndex].name) {
+    //       fileId = fileIndex
+    //     }
+    //   }
+    //   this.core.emitter.emit('core:upload-success', fileId, tagFile, '')
+    // }, 2000, tagFile)
   };
 
   Ftp.prototype.logout = function logout() {
@@ -19007,7 +19021,7 @@ module.exports = function (_Plugin) {
   return Ftp;
 }(Plugin);
 
-},{"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
+},{"../../core/Utils":95,"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
