@@ -19002,17 +19002,17 @@ module.exports = function (_Plugin) {
 
     this.core.emitter.emit('core:file-add', tagFile);
     setTimeout(function (tagFile) {
-      var fileId = void 0;
-      var files = _this3.getPluginState().files;
-      // Find file in this collection and get id
-      // Then invoke upload success automatically
-      for (var fileIndex in files) {
-        if (tagFile.name === files[fileIndex].file_name) {
-          fileId = fileIndex;
-        }
-      }
+      // let fileId
+      // let files = this.getPluginState().files
+      // // Find file in this collection and get id
+      // // Then invoke upload success automatically
+      // for (let fileIndex in files) {
+      //   if (tagFile.name === files[fileIndex].file_name) {
+      //     fileId = fileIndex
+      //   }
+      // }
       debugger;
-      _this3.core.emitter.emit('core:upload-success', fileId);
+      _this3.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '');
     }, 2000, tagFile);
   };
 
