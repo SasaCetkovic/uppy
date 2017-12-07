@@ -18963,6 +18963,7 @@ module.exports = function (_Plugin) {
 
     var tagFile = {
       source: this.id,
+      id: '',
       data: this.getItemData(file),
       name: this.getItemName(file),
       type: this.getMimeType(file),
@@ -18970,6 +18971,14 @@ module.exports = function (_Plugin) {
       body: {
         fileId: this.getItemId(file)
       },
+      progress: {
+        percentage: 0,
+        bytesUploaded: 0,
+        bytesTotal: file.file_size || 0,
+        uploadComplete: false,
+        uploadStarted: false
+      },
+      size: file.file_size,
       remote: {
         host: this.opts.host,
         url: '',
@@ -18977,12 +18986,14 @@ module.exports = function (_Plugin) {
           fileId: this.getItemId(file)
         }
       }
+    };
+    tagFile.id = Utils.generateFileID(tagFile);
 
-      // Utils.getFileType(tagFile).then(fileType => {
-      // if (fileType && Utils.isPreviewSupported(fileType)) {
-      //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
-      // }
-    };this.core.log('Adding remote file');
+    // Utils.getFileType(tagFile).then(fileType => {
+    // if (fileType && Utils.isPreviewSupported(fileType)) {
+    //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
+    // }
+    this.core.log('Adding remote file');
     // this.core.addFile(tagFile)
     if (!isCheckbox) {
       this.view.donePicking();
@@ -21989,10 +22000,6 @@ module.exports = function (_Plugin) {
     this.resetUploaderReferences(file.id);
 
     return new _Promise(function (resolve, reject) {
-      if (file.source === 'Ftp') {
-        return resolve();
-      }
-
       _this3.core.log(file.remote.url);
       if (file.serverToken) {
         _this3.connectToServerSocket(file);
