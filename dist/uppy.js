@@ -21989,6 +21989,10 @@ module.exports = function (_Plugin) {
     this.resetUploaderReferences(file.id);
 
     return new _Promise(function (resolve, reject) {
+      if (file.source === 'Ftp') {
+        return resolve();
+      }
+
       _this3.core.log(file.remote.url);
       if (file.serverToken) {
         _this3.connectToServerSocket(file);
