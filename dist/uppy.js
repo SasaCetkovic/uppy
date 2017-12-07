@@ -18977,12 +18977,14 @@ module.exports = function (_Plugin) {
           fileId: this.getItemId(file)
         }
       }
+    };
+    debugger;
 
-      // Utils.getFileType(tagFile).then(fileType => {
-      // if (fileType && Utils.isPreviewSupported(fileType)) {
-      //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
-      // }
-    };this.core.log('Adding remote file');
+    // Utils.getFileType(tagFile).then(fileType => {
+    // if (fileType && Utils.isPreviewSupported(fileType)) {
+    //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
+    // }
+    this.core.log('Adding remote file');
     // this.core.addFile(tagFile)
     if (!isCheckbox) {
       this.view.donePicking();
@@ -19001,7 +19003,7 @@ module.exports = function (_Plugin) {
         }
       }
       debugger;
-      _this3.core.emitter.emit('core:upload-success', fileId);
+      _this3.core.emitter.emit('core:upload-success', fileId, file, '');
     }, 2000, tagFile);
   };
 
