@@ -17169,7 +17169,7 @@ module.exports = function Dashboard(props) {
 
   return _div2 = document.createElement('div'), _div2.setAttribute('aria-hidden', '' + String(props.inline ? 'false' : props.modal.isHidden) + ''), _div2.setAttribute('aria-label', '' + String(!props.inline ? props.i18n('dashboardWindowTitle') : props.i18n('dashboardTitle')) + ''), _div2.onpaste = handlePaste, _div2.setAttribute('class', 'Uppy UppyTheme--default UppyDashboard\n                          ' + String(isTouchDevice() ? 'Uppy--isTouchDevice' : '') + '\n                          ' + String(props.semiTransparent ? 'UppyDashboard--semiTransparent' : '') + '\n                          ' + String(!props.inline ? 'UppyDashboard--modal' : '') + '\n                          ' + String(props.isWide ? 'UppyDashboard--wide' : '') + ''), _appendChild(_div2, [' ', (_uppyDashboardOverlay = document.createElement('div'), _uppyDashboardOverlay.setAttribute('tabindex', '-1'), _uppyDashboardOverlay.onclick = props.handleClickOutside, _uppyDashboardOverlay.setAttribute('class', 'UppyDashboard-overlay'), _uppyDashboardOverlay), ' ', (_uppyDashboardInner = document.createElement('div'), _onload(_uppyDashboardInner, function () {
     return props.updateDashboardElWidth();
-  }, null, 3), _uppyDashboardInner.setAttribute('aria-modal', 'true'), _uppyDashboardInner.setAttribute('role', 'dialog'), _uppyDashboardInner.setAttribute('style', '\n          ' + String(props.inline && props.maxWidth ? 'max-width: ' + props.maxWidth + 'px;' : '') + '\n          ' + String(props.inline && props.maxHeight ? 'max-height: ' + props.maxHeight + 'px;' : '') + ''), _uppyDashboardInner.setAttribute('class', 'UppyDashboard-inner'), _appendChild(_uppyDashboardInner, [' ', (_uppyDashboardClose = document.createElement('button'), _uppyDashboardClose.setAttribute('type', 'button'), _uppyDashboardClose.setAttribute('aria-label', '' + String(props.i18n('closeModal')) + ''), _uppyDashboardClose.setAttribute('title', '' + String(props.i18n('closeModal')) + ''), _uppyDashboardClose.onclick = props.closeModal, _uppyDashboardClose.setAttribute('class', 'UppyDashboard-close'), _appendChild(_uppyDashboardClose, [closeIcon()]), _uppyDashboardClose), ' ', (_uppyDashboardInnerWrap = document.createElement('div'), _uppyDashboardInnerWrap.setAttribute('class', 'UppyDashboard-innerWrap'), _appendChild(_uppyDashboardInnerWrap, [' ', Tabs({
+  }, null, 5), _uppyDashboardInner.setAttribute('aria-modal', 'true'), _uppyDashboardInner.setAttribute('role', 'dialog'), _uppyDashboardInner.setAttribute('style', '\n          ' + String(props.inline && props.maxWidth ? 'max-width: ' + props.maxWidth + 'px;' : '') + '\n          ' + String(props.inline && props.maxHeight ? 'max-height: ' + props.maxHeight + 'px;' : '') + ''), _uppyDashboardInner.setAttribute('class', 'UppyDashboard-inner'), _appendChild(_uppyDashboardInner, [' ', (_uppyDashboardClose = document.createElement('button'), _uppyDashboardClose.setAttribute('type', 'button'), _uppyDashboardClose.setAttribute('aria-label', '' + String(props.i18n('closeModal')) + ''), _uppyDashboardClose.setAttribute('title', '' + String(props.i18n('closeModal')) + ''), _uppyDashboardClose.onclick = props.closeModal, _uppyDashboardClose.setAttribute('class', 'UppyDashboard-close'), _appendChild(_uppyDashboardClose, [closeIcon()]), _uppyDashboardClose), ' ', (_uppyDashboardInnerWrap = document.createElement('div'), _uppyDashboardInnerWrap.setAttribute('class', 'UppyDashboard-innerWrap'), _appendChild(_uppyDashboardInnerWrap, [' ', Tabs({
     files: props.files,
     handleInputChange: handleInputChange,
     acquirers: props.acquirers,
@@ -18556,7 +18556,7 @@ module.exports = function (_Plugin) {
     var bla = (_h2 = document.createElement('h2'), _h2.textContent = 'this is strange 2', _h2);
     return _wowThisWorks = document.createElement('div'), _wowThisWorks.setAttribute('class', 'wow-this-works'), _appendChild(_wowThisWorks, [' ', (_uppyDummyFirstInput = document.createElement('input'), _onload(_uppyDummyFirstInput, function (el) {
       el.focus();
-    }, null, 1), _uppyDummyFirstInput.setAttribute('type', 'text'), _uppyDummyFirstInput.setAttribute('value', 'hello'), _uppyDummyFirstInput.setAttribute('class', 'UppyDummy-firstInput'), _uppyDummyFirstInput), ' ', this.strange, ' ', bla, ' ', state.dummy.text, ' ']), _wowThisWorks;
+    }, null, 2), _uppyDummyFirstInput.setAttribute('type', 'text'), _uppyDummyFirstInput.setAttribute('value', 'hello'), _uppyDummyFirstInput.setAttribute('class', 'UppyDummy-firstInput'), _uppyDummyFirstInput), ' ', this.strange, ' ', bla, ' ', state.dummy.text, ' ']), _wowThisWorks;
   };
 
   Dummy.prototype.install = function install() {
@@ -18968,7 +18968,7 @@ module.exports = function (_Plugin) {
       data: this.getItemData(file),
       name: this.getItemName(file),
       type: this.getMimeType(file),
-      isRemote: true,
+      isRemote: false,
       body: {
         fileId: this.getItemId(file)
       },
@@ -19013,9 +19013,6 @@ module.exports = function (_Plugin) {
       //   }
       // }
       debugger;
-      tagFile.isRemote = false;
-      tagFile.progress.uploadStarted = true;
-      tagFile.progress.bytesUploaded = file.file_size;
       _this3.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '');
     }, 2000, tagFile);
   };
@@ -22300,7 +22297,7 @@ module.exports = function (props) {
     if (recordButton) recordButton.focus();
   }, function (el) {
     props.onStop();
-  }, 4), _uppyWebcamContainer.setAttribute('class', 'UppyWebcam-container'), _appendChild(_uppyWebcamContainer, [' ', (_uppyWebcamVideoContainer = document.createElement('div'), _uppyWebcamVideoContainer.setAttribute('class', 'UppyWebcam-videoContainer'), _appendChild(_uppyWebcamVideoContainer, [' ', video, ' ']), _uppyWebcamVideoContainer), ' ', (_uppyWebcamButtonContainer = document.createElement('div'), _uppyWebcamButtonContainer.setAttribute('class', 'UppyWebcam-buttonContainer'), _appendChild(_uppyWebcamButtonContainer, [' ', shouldShowRecordButton ? RecordButton(props) : null, ' ', shouldShowSnapshotButton ? SnapshotButton(props) : null, ' ']), _uppyWebcamButtonContainer), ' ', (_uppyWebcamCanvas = document.createElement('canvas'), _uppyWebcamCanvas.setAttribute('style', 'display: none;'), _uppyWebcamCanvas.setAttribute('class', 'UppyWebcam-canvas'), _uppyWebcamCanvas), ' ']), _uppyWebcamContainer;
+  }, 6), _uppyWebcamContainer.setAttribute('class', 'UppyWebcam-container'), _appendChild(_uppyWebcamContainer, [' ', (_uppyWebcamVideoContainer = document.createElement('div'), _uppyWebcamVideoContainer.setAttribute('class', 'UppyWebcam-videoContainer'), _appendChild(_uppyWebcamVideoContainer, [' ', video, ' ']), _uppyWebcamVideoContainer), ' ', (_uppyWebcamButtonContainer = document.createElement('div'), _uppyWebcamButtonContainer.setAttribute('class', 'UppyWebcam-buttonContainer'), _appendChild(_uppyWebcamButtonContainer, [' ', shouldShowRecordButton ? RecordButton(props) : null, ' ', shouldShowSnapshotButton ? SnapshotButton(props) : null, ' ']), _uppyWebcamButtonContainer), ' ', (_uppyWebcamCanvas = document.createElement('canvas'), _uppyWebcamCanvas.setAttribute('style', 'display: none;'), _uppyWebcamCanvas.setAttribute('class', 'UppyWebcam-canvas'), _uppyWebcamCanvas), ' ']), _uppyWebcamContainer;
 };
 
 },{"./RecordButton":146,"./SnapshotButton":149,"on-load":48,"yo-yoify/lib/appendChild":90}],145:[function(require,module,exports){
