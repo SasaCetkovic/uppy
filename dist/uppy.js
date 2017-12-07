@@ -19013,6 +19013,7 @@ module.exports = function (_Plugin) {
       //   }
       // }
       debugger;
+      tagFile.isRemote = false;
       tagFile.progress.uploadStarted = true;
       tagFile.progress.bytesUploaded = file.file_size;
       _this3.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '');
