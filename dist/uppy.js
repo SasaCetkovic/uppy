@@ -15089,6 +15089,7 @@ var Uppy = function () {
         var file = _this7.getFile(fileID);
 
         if (!file.progress.uploadStarted || file.isRemote) {
+          debugger;
           waitingFileIDs.push(file.id);
         }
       });
