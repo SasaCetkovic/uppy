@@ -18804,6 +18804,7 @@ var Plugin = require('../Plugin');
 var FtpProvider = require('./FtpProvider');
 var View = require('../../generic-provider-views');
 var icons = require('./icons');
+var Utils = require('../../core/Utils');
 
 module.exports = function (_Plugin) {
   _inherits(Ftp, _Plugin);
@@ -18997,23 +18998,26 @@ module.exports = function (_Plugin) {
     setTimeout(function (tagFile) {
       // need this hack to skip setting the FTP files on "paused upload"
       // (i.e. adding them in the waitingFileIDs collection in Core.js upload() function)
-      _this3.setFileRemoteStatusToFalse(tagFile.id);
+      var fileId = Utils.generateFileID(tagFile);
+      var updatedFile = _this3.setFileRemoteStatusToFalse(fileId);
 
       // the actual upload is done elsewhere in backend, we only simulate here
-      _this3.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '');
+      _this3.core.emitter.emit('core:upload-success', fileId, updatedFile, '');
     }, 1500, tagFile);
   };
 
-  Ftp.prototype.setFileRemoteStatusToFalse = function setFileRemoteStatusToFalse(fileID) {
+  Ftp.prototype.setFileRemoteStatusToFalse = function setFileRemoteStatusToFalse(fileId) {
     var updatedFiles = _extends({}, this.core.getState().files);
-    var updatedFile = _extends({}, updatedFiles[fileID], {
+    var updatedFile = _extends({}, updatedFiles[fileId], {
       isRemote: false
     });
-    updatedFiles[fileID] = updatedFile;
+    updatedFiles[fileId] = updatedFile;
 
     this.core.setState({
       files: updatedFiles
     });
+
+    return updatedFile;
   };
 
   Ftp.prototype.logout = function logout() {
@@ -19032,7 +19036,7 @@ module.exports = function (_Plugin) {
   return Ftp;
 }(Plugin);
 
-},{"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
+},{"../../core/Utils":95,"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
