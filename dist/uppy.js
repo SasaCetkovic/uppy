@@ -15089,7 +15089,6 @@ var Uppy = function () {
         var file = _this7.getFile(fileID);
 
         if (!file.progress.uploadStarted || file.isRemote) {
-          debugger;
           waitingFileIDs.push(file.id);
         }
       });
@@ -18957,6 +18956,10 @@ module.exports = function (_Plugin) {
     }, this.view.handleError);
   };
 
+  // this function replaces the role of functions with the same name
+  // in Core.js and generic-provider-views
+
+
   Ftp.prototype.addFile = function addFile(file) {
     var _this3 = this;
 
@@ -18990,35 +18993,23 @@ module.exports = function (_Plugin) {
     };
     tagFile.id = Utils.generateFileID(tagFile);
 
-    // Utils.getFileType(tagFile).then(fileType => {
-    // if (fileType && Utils.isPreviewSupported(fileType)) {
-    //   tagFile.preview = this.plugin.getItemThumbnailUrl(file)
-    // }
     this.core.log('Adding remote file');
-    // this.core.addFile(tagFile)
     if (!isCheckbox) {
       this.view.donePicking();
     }
-    // })
 
     this.core.emitter.emit('core:file-add', tagFile);
     setTimeout(function (tagFile) {
-      // let fileId
-      // let files = this.getPluginState().files
-      // // Find file in this collection and get id
-      // // Then invoke upload success automatically
-      // for (let fileIndex in files) {
-      //   if (tagFile.name === files[fileIndex].file_name) {
-      //     fileId = fileIndex
-      //   }
-      // }
-      debugger;
-      _this3.updateFiles(tagFile.id);
+      // need this hack to skip setting the FTP files on "paused upload"
+      // (i.e. adding them in the waitingFileIDs collection in Core.js upload() function)
+      _this3.setFileRemoteStatusToFalse(tagFile.id);
+
+      // the actual upload is done elsewhere in backend, we only simulate here
       _this3.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '');
-    }, 2000, tagFile);
+    }, 1500, tagFile);
   };
 
-  Ftp.prototype.updateFiles = function updateFiles(fileID) {
+  Ftp.prototype.setFileRemoteStatusToFalse = function setFileRemoteStatusToFalse(fileID) {
     var updatedFiles = _extends({}, this.core.getState().files);
     var updatedFile = _extends({}, updatedFiles[fileID], {
       isRemote: false
