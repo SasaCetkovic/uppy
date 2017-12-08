@@ -18988,7 +18988,7 @@ module.exports = function (_Plugin) {
     };
 
     this.core.log('Adding remote file');
-    this.plugin.addFile(tagFile);
+    this.core.addFile(tagFile);
 
     if (!isCheckbox) {
       this.view.donePicking();
