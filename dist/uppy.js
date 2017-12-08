@@ -18804,7 +18804,6 @@ var Plugin = require('../Plugin');
 var FtpProvider = require('./FtpProvider');
 var View = require('../../generic-provider-views');
 var icons = require('./icons');
-var Utils = require('../../core/Utils');
 
 module.exports = function (_Plugin) {
   _inherits(Ftp, _Plugin);
@@ -18923,6 +18922,10 @@ module.exports = function (_Plugin) {
     return item.modified;
   };
 
+  Ftp.prototype.getItemThumbnailUrl = function getItemThumbnailUrl(item) {
+    return this.opts.fileThumb;
+  };
+
   Ftp.prototype.getFolder = function getFolder() {
     var _this2 = this;
 
@@ -18956,8 +18959,8 @@ module.exports = function (_Plugin) {
     }, this.view.handleError);
   };
 
-  // this function replaces the role of functions with the same name
-  // in Core.js and generic-provider-views
+  // this function replaces the role of the function with the same name
+  // in generic-provider-views
 
 
   Ftp.prototype.addFile = function addFile(file) {
@@ -18967,22 +18970,14 @@ module.exports = function (_Plugin) {
 
     var tagFile = {
       source: this.id,
-      id: '',
       data: this.getItemData(file),
       name: this.getItemName(file),
-      type: this.getMimeType(file),
+      // type: this.getMimeType(file),
+      preview: this.getItemThumbnailUrl(file),
       isRemote: true,
       body: {
         fileId: this.getItemId(file)
       },
-      progress: {
-        percentage: 0,
-        bytesUploaded: 0,
-        bytesTotal: file.file_size || 0,
-        uploadComplete: false,
-        uploadStarted: false
-      },
-      size: file.file_size,
       remote: {
         host: this.opts.host,
         url: '',
@@ -18991,14 +18986,14 @@ module.exports = function (_Plugin) {
         }
       }
     };
-    tagFile.id = Utils.generateFileID(tagFile);
 
     this.core.log('Adding remote file');
+    this.plugin.addFile(tagFile);
+
     if (!isCheckbox) {
       this.view.donePicking();
     }
 
-    this.core.emitter.emit('core:file-add', tagFile);
     setTimeout(function (tagFile) {
       // need this hack to skip setting the FTP files on "paused upload"
       // (i.e. adding them in the waitingFileIDs collection in Core.js upload() function)
@@ -19037,7 +19032,7 @@ module.exports = function (_Plugin) {
   return Ftp;
 }(Plugin);
 
-},{"../../core/Utils":95,"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
+},{"../../generic-provider-views":104,"../Plugin":133,"./FtpProvider":122,"./icons":123,"yo-yoify/lib/appendChild":90}],125:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
