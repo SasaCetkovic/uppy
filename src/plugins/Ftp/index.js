@@ -118,6 +118,10 @@ module.exports = class Ftp extends Plugin {
     return item.modified
   }
 
+  getItemThumbnailUrl (item) {
+    return this.opts.fileThumb
+  }
+
   getFolder () {
     this.view._loaderWrapper(
       this.Ftp.list(''),
@@ -139,27 +143,19 @@ module.exports = class Ftp extends Plugin {
       this.view.handleError)
   }
 
-  // this function replaces the role of functions with the same name
-  // in Core.js and generic-provider-views
+  // this function replaces the role of the function with the same name
+  // in generic-provider-views
   addFile (file, isCheckbox = false) {
     const tagFile = {
       source: this.id,
-      id: '',
       data: this.getItemData(file),
       name: this.getItemName(file),
-      type: this.getMimeType(file),
+      // type: this.getMimeType(file),
+      preview: this.getItemThumbnailUrl(file),
       isRemote: true,
       body: {
         fileId: this.getItemId(file)
       },
-      progress: {
-        percentage: 0,
-        bytesUploaded: 0,
-        bytesTotal: file.file_size || 0,
-        uploadComplete: false,
-        uploadStarted: false
-      },
-      size: file.file_size,
       remote: {
         host: this.opts.host,
         url: '',
@@ -168,34 +164,37 @@ module.exports = class Ftp extends Plugin {
         }
       }
     }
-    tagFile.id = Utils.generateFileID(tagFile)
 
     this.core.log('Adding remote file')
+    this.core.addFile(tagFile)
+
     if (!isCheckbox) {
       this.view.donePicking()
     }
 
-    this.core.emitter.emit('core:file-add', tagFile)
     setTimeout((tagFile) => {
       // need this hack to skip setting the FTP files on "paused upload"
       // (i.e. adding them in the waitingFileIDs collection in Core.js upload() function)
-      this.setFileRemoteStatusToFalse(tagFile.id)
+      let fileId = Utils.generateFileID(tagFile)
+      let updatedFile = this.setFileRemoteStatusToFalse(fileId)
 
       // the actual upload is done elsewhere in backend, we only simulate here
-      this.core.emitter.emit('core:upload-success', tagFile.id, tagFile, '')
+      this.core.emitter.emit('core:upload-success', fileId, updatedFile, '')
     }, 1500, tagFile)
   }
 
-  setFileRemoteStatusToFalse (fileID) {
+  setFileRemoteStatusToFalse (fileId) {
     const updatedFiles = Object.assign({}, this.core.getState().files)
-    const updatedFile = Object.assign({}, updatedFiles[fileID], {
+    const updatedFile = Object.assign({}, updatedFiles[fileId], {
       isRemote: false
     })
-    updatedFiles[fileID] = updatedFile
+    updatedFiles[fileId] = updatedFile
 
     this.core.setState({
       files: updatedFiles
     })
+
+    return updatedFile
   }
 
   logout () {
