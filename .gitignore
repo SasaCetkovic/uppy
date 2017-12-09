@@ -6,6 +6,7 @@ node_modules
 
 lib/
 coverage/
+.vs/
 
 website/db.json
 website/*.log
