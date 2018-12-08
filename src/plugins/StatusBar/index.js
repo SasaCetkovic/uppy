@@ -1,6 +1,6 @@
-const Plugin = require('../Plugin')
+const Plugin = require('../../core/Plugin')
 const Translator = require('../../core/Translator')
-const StatusBar = require('./StatusBar')
+const StatusBarUI = require('./StatusBar')
 const { getSpeed } = require('../../core/Utils')
 const { getBytesRemaining } = require('../../core/Utils')
 const { prettyETA } = require('../../core/Utils')
@@ -9,9 +9,9 @@ const prettyBytes = require('prettier-bytes')
 /**
  * A status bar.
  */
-module.exports = class StatusBarUI extends Plugin {
-  constructor (core, opts) {
-    super(core, opts)
+module.exports = class StatusBar extends Plugin {
+  constructor (uppy, opts) {
+    super(uppy, opts)
     this.id = this.opts.id || 'StatusBar'
     this.title = 'StatusBar'
     this.type = 'progressindicator'
@@ -46,7 +46,8 @@ module.exports = class StatusBarUI extends Plugin {
       target: 'body',
       hideUploadButton: false,
       showProgressDetails: false,
-      locale: defaultLocale
+      locale: defaultLocale,
+      hideAfterFinish: true
     }
 
     // merge default options with the ones set by user
@@ -90,7 +91,9 @@ module.exports = class StatusBarUI extends Plugin {
       return files[file].progress.uploadStarted
     })
     const newFiles = Object.keys(files).filter((file) => {
-      return !files[file].progress.uploadStarted
+      return !files[file].progress.uploadStarted &&
+        !files[file].progress.preprocess &&
+        !files[file].progress.postprocess
     })
     const completeFiles = Object.keys(files).filter((file) => {
       return files[file].progress.uploadComplete
@@ -139,9 +142,9 @@ module.exports = class StatusBarUI extends Plugin {
       !isAllErrored &&
       uploadStartedFiles.length > 0
 
-    const resumableUploads = this.core.getState().capabilities.resumableUploads || false
+    const resumableUploads = this.uppy.getState().capabilities.resumableUploads || false
 
-    return StatusBar({
+    return StatusBarUI({
       error: state.error,
       totalProgress: state.totalProgress,
       totalSize: totalSize,
@@ -152,11 +155,11 @@ module.exports = class StatusBarUI extends Plugin {
       isAllErrored: isAllErrored,
       isUploadStarted: isUploadStarted,
       i18n: this.i18n,
-      pauseAll: this.core.pauseAll,
-      resumeAll: this.core.resumeAll,
-      retryAll: this.core.retryAll,
-      cancelAll: this.core.cancelAll,
-      startUpload: this.core.upload,
+      pauseAll: this.uppy.pauseAll,
+      resumeAll: this.uppy.resumeAll,
+      retryAll: this.uppy.retryAll,
+      cancelAll: this.uppy.cancelAll,
+      startUpload: this.uppy.upload,
       complete: completeFiles.length,
       newFiles: newFiles.length,
       inProgress: uploadStartedFiles.length,
@@ -164,7 +167,8 @@ module.exports = class StatusBarUI extends Plugin {
       totalETA: totalETA,
       files: state.files,
       resumableUploads: resumableUploads,
-      hideUploadButton: this.opts.hideUploadButton
+      hideUploadButton: this.opts.hideUploadButton,
+      hideAfterFinish: this.opts.hideAfterFinish
     })
   }
 

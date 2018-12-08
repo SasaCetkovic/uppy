@@ -1,28 +1,27 @@
-const Core = require('./core/index.js')
+const Core = require('./core')
 
 // Parent
-const Plugin = require('./plugins/Plugin')
+const Plugin = require('./core/Plugin')
 
 // Orchestrators
-const Dashboard = require('./plugins/Dashboard/index.js')
+const Dashboard = require('./plugins/Dashboard')
 
 // Acquirers
 const Dummy = require('./plugins/Dummy')
-const DragDrop = require('./plugins/DragDrop/index.js')
-const FileInput = require('./plugins/FileInput.js')
-const GoogleDrive = require('./plugins/GoogleDrive/index.js')
-const Dropbox = require('./plugins/Dropbox/index.js')
-const Instagram = require('./plugins/Instagram/index.js')
-const Webcam = require('./plugins/Webcam/index.js')
-const Ftp = require('./plugins/Ftp/index.js')
+const DragDrop = require('./plugins/DragDrop')
+const FileInput = require('./plugins/FileInput')
+const GoogleDrive = require('./plugins/GoogleDrive')
+const Dropbox = require('./plugins/Dropbox')
+const Instagram = require('./plugins/Instagram')
+const Webcam = require('./plugins/Webcam')
+const Ftp = require('./plugins/Ftp')
 
 // Progressindicators
 const StatusBar = require('./plugins/StatusBar')
-const ProgressBar = require('./plugins/ProgressBar.js')
-const Informer = require('./plugins/Informer.js')
+const ProgressBar = require('./plugins/ProgressBar')
+const Informer = require('./plugins/Informer')
 
 // Modifiers
-const MetaData = require('./plugins/MetaData.js')
 
 // Uploaders
 const Tus = require('./plugins/Tus')
@@ -52,40 +51,9 @@ module.exports = {
   Transloadit,
   AwsS3,
   Dashboard,
-  MetaData,
   Webcam,
   GoldenRetriever,
   ReduxDevTools,
   ReduxStore,
   Ftp
 }
-
-Object.defineProperty(module.exports, 'RestoreFiles', {
-  enumerable: true,
-  configurable: true,
-  get: () => {
-    console.warn('Uppy.RestoreFiles is deprecated and will be removed in v0.22. Use Uppy.GoldenRetriever instead.')
-    Object.defineProperty(module.exports, 'RestoreFiles', {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: GoldenRetriever
-    })
-    return GoldenRetriever
-  }
-})
-
-Object.defineProperty(module.exports, 'Tus10', {
-  enumerable: true,
-  configurable: true,
-  get: () => {
-    console.warn('Uppy.Tus10 is deprecated and will be removed in v0.22. Use Uppy.Tus instead.')
-    Object.defineProperty(module.exports, 'Tus10', {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: Tus
-    })
-    return Tus
-  }
-})

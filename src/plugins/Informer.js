@@ -1,5 +1,5 @@
-const Plugin = require('./Plugin')
-const html = require('yo-yo')
+const Plugin = require('../core/Plugin')
+const { h } = require('preact')
 
 /**
  * Informer
@@ -9,12 +9,11 @@ const html = require('yo-yo')
  *
  */
 module.exports = class Informer extends Plugin {
-  constructor (core, opts) {
-    super(core, opts)
+  constructor (uppy, opts) {
+    super(uppy, opts)
     this.type = 'progressindicator'
     this.id = this.opts.id || 'Informer'
     this.title = 'Informer'
-    // this.timeoutID = undefined
 
     // set default options
     const defaultOptions = {
@@ -45,20 +44,28 @@ module.exports = class Informer extends Plugin {
   }
 
   render (state) {
-    const {isHidden, type, message, details} = state.info
-    const style = `background-color: ${this.opts.typeColors[type].bg}; color: ${this.opts.typeColors[type].text};`
+    const { isHidden, type, message, details } = state.info
+    const style = {
+      backgroundColor: this.opts.typeColors[type].bg,
+      color: this.opts.typeColors[type].text
+    }
 
-    return html`<div class="Uppy UppyInformer" 
-                     style="${style}" 
-                     aria-hidden="${isHidden}" >
-      <p role="alert">
-        ${message} 
-        ${details ? html`<span style="color: ${this.opts.typeColors[type].bg}" 
-                               data-balloon="${details}" 
-                               data-balloon-pos="up" 
-                               data-balloon-length="large">?</span>` : null}
-      </p>
-    </div>`
+    return (
+      <div class="uppy uppy-Informer"
+        style={style}
+        aria-hidden={isHidden}>
+        <p role="alert">
+          {message}
+          {' '}
+          {details && <span style={{ color: this.opts.typeColors[type].bg }}
+            aria-label={details}
+            data-microtip-position="top"
+            data-microtip-size="large"
+            role="tooltip">?</span>
+          }
+        </p>
+      </div>
+    )
   }
 
   install () {

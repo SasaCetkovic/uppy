@@ -1,31 +1,32 @@
-const html = require('yo-yo')
-const Plugin = require('../Plugin')
+const Plugin = require('../../core/Plugin')
+const Provider = require('../Provider')
+// const View = require('../Provider/view')
 const FtpProvider = require('./FtpProvider')
-const View = require('../../generic-provider-views')
 const icons = require('./icons')
 const Utils = require('../../core/Utils')
+const { h } = require('preact')
 
 module.exports = class Ftp extends Plugin {
-  constructor (core, opts) {
-    super(core, opts)
+  constructor (uppy, opts) {
+    super(uppy, opts)
     this.type = 'acquirer'
     this.id = 'Ftp'
     this.title = 'Ftp'
     this.stateId = 'ftp'
 
-    this.icon = () => html`
+    this.icon = () => (
       <svg class="UppyIcon" width="128" height="118" viewBox="0 0 128 118">
         <path d="M38.145.777L1.108 24.96l25.608 20.507 37.344-23.06z"/>
         <path d="M1.108 65.975l37.037 24.183L64.06 68.525l-37.343-23.06zM64.06 68.525l25.917 21.633 37.036-24.183-25.61-20.51z"/>
         <path d="M127.014 24.96L89.977.776 64.06 22.407l37.345 23.06zM64.136 73.18l-25.99 21.567-11.122-7.262v8.142l37.112 22.256 37.114-22.256v-8.142l-11.12 7.262z"/>
       </svg>
-    `
+    )
 
     this.initiated = false
 
     // writing out the key explicitly for readability the key used to store
     // the provider instance must be equal to this.id.
-    this[this.id] = new FtpProvider(core, opts)
+    this[this.id] = new FtpProvider(uppy, opts)
 
     this.files = []
     this.onAuth = this.onAuth.bind(this)
@@ -165,8 +166,8 @@ module.exports = class Ftp extends Plugin {
       }
     }
 
-    this.core.log('Adding remote file')
-    this.core.addFile(tagFile)
+    this.uppy.log('Adding remote file')
+    this.uppy.addFile(tagFile)
 
     if (!isCheckbox) {
       this.view.donePicking()
@@ -179,18 +180,18 @@ module.exports = class Ftp extends Plugin {
       let updatedFile = this.setFileRemoteStatusToFalse(fileId)
 
       // the actual upload is done elsewhere in backend, we only simulate here
-      this.core.emitter.emit('core:upload-success', fileId, updatedFile, '')
+      this.uppy.emitter.emit('upload-success', fileId, updatedFile, '')
     }, 1500, tagFile)
   }
 
   setFileRemoteStatusToFalse (fileId) {
-    const updatedFiles = Object.assign({}, this.core.getState().files)
+    const updatedFiles = Object.assign({}, this.uppy.getState().files)
     const updatedFile = Object.assign({}, updatedFiles[fileId], {
       isRemote: false
     })
     updatedFiles[fileId] = updatedFile
 
-    this.core.setState({
+    this.uppy.setState({
       files: updatedFiles
     })
 

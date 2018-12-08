@@ -1,10 +1,14 @@
-const Plugin = require('../Plugin')
+const Plugin = require('../../core/Plugin')
 const Translator = require('../../core/Translator')
 const XHRUpload = require('../XHRUpload')
 
+function isXml (xhr) {
+  return xhr.getResponseHeader('Content-Type').toLowerCase() === 'application/xml'
+}
+
 module.exports = class AwsS3 extends Plugin {
-  constructor (core, opts) {
-    super(core, opts)
+  constructor (uppy, opts) {
+    super(uppy, opts)
     this.type = 'uploader'
     this.id = 'AwsS3'
     this.title = 'AWS S3'
@@ -16,6 +20,8 @@ module.exports = class AwsS3 extends Plugin {
     }
 
     const defaultOptions = {
+      timeout: 30 * 1000,
+      limit: 0,
       getUploadParameters: this.getUploadParameters.bind(this),
       locale: defaultLocale
     }
@@ -45,7 +51,7 @@ module.exports = class AwsS3 extends Plugin {
 
   prepareUpload (fileIDs) {
     fileIDs.forEach((id) => {
-      this.core.emit('core:preprocess-progress', id, {
+      this.uppy.emit('preprocess-progress', id, {
         mode: 'determinate',
         message: this.i18n('preparingUpload'),
         value: 0
@@ -54,24 +60,24 @@ module.exports = class AwsS3 extends Plugin {
 
     return Promise.all(
       fileIDs.map((id) => {
-        const file = this.core.getFile(id)
+        const file = this.uppy.getFile(id)
         const paramsPromise = Promise.resolve()
           .then(() => this.opts.getUploadParameters(file))
         return paramsPromise.then((params) => {
-          this.core.emit('core:preprocess-progress', file.id, {
+          this.uppy.emit('preprocess-progress', file.id, {
             mode: 'determinate',
             message: this.i18n('preparingUpload'),
             value: 1
           })
           return params
         }).catch((error) => {
-          this.core.emit('core:upload-error', file.id, error)
+          this.uppy.emit('upload-error', file.id, error)
         })
       })
     ).then((responses) => {
       const updatedFiles = {}
       fileIDs.forEach((id, index) => {
-        const file = this.core.getFile(id)
+        const file = this.uppy.getFile(id)
         if (file.error) {
           return
         }
@@ -101,26 +107,28 @@ module.exports = class AwsS3 extends Plugin {
         updatedFiles[id] = updatedFile
       })
 
-      this.core.setState({
-        files: Object.assign({}, this.core.getState().files, updatedFiles)
+      this.uppy.setState({
+        files: Object.assign({}, this.uppy.getState().files, updatedFiles)
       })
 
       fileIDs.forEach((id) => {
-        this.core.emit('core:preprocess-complete', id)
+        this.uppy.emit('preprocess-complete', id)
       })
     })
   }
 
   install () {
-    this.core.addPreProcessor(this.prepareUpload)
+    this.uppy.addPreProcessor(this.prepareUpload)
 
-    this.core.use(XHRUpload, {
+    this.uppy.use(XHRUpload, {
       fieldName: 'file',
       responseUrlFieldName: 'location',
+      timeout: this.opts.timeout,
+      limit: this.opts.limit,
       getResponseData (xhr) {
         // If no response, we've hopefully done a PUT request to the file
         // in the bucket on its full URL.
-        if (!xhr.responseXML) {
+        if (!isXml(xhr)) {
           return { location: xhr.responseURL }
         }
         function getValue (key) {
@@ -136,7 +144,7 @@ module.exports = class AwsS3 extends Plugin {
       },
       getResponseError (xhr) {
         // If no response, we don't have a specific error message, use the default.
-        if (!xhr.responseXML) {
+        if (!isXml(xhr)) {
           return
         }
         const error = xhr.responseXML.querySelector('Error > Message')
@@ -146,9 +154,9 @@ module.exports = class AwsS3 extends Plugin {
   }
 
   uninstall () {
-    const uploader = this.core.getPlugin('XHRUpload')
-    this.core.removePlugin(uploader)
+    const uploader = this.uppy.getPlugin('XHRUpload')
+    this.uppy.removePlugin(uploader)
 
-    this.core.removePreProcessor(this.prepareUpload)
+    this.uppy.removePreProcessor(this.prepareUpload)
   }
 }

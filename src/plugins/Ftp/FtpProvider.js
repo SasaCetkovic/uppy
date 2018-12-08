@@ -1,6 +1,6 @@
 'use strict'
 
-const Provider = require('../../Provider')
+const Provider = require('../Provider')
 
 require('whatwg-fetch')
 
@@ -8,9 +8,9 @@ require('whatwg-fetch')
  * FTP Provider
  */
 module.exports = class FtpProvider extends Provider {
-  constructor (core, opts) {
+  constructor (uppy, opts) {
     let newopts = Object.assign({ provider: 'ftp' }, opts)
-    super(core, newopts)
+    super(uppy, newopts)
   }
 
   // Get files from FTP service
